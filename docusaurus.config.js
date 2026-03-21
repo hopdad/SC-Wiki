@@ -18,6 +18,12 @@ const config = {
 
   onBrokenLinks: 'throw',
 
+  // Supabase config — set these for your environment
+  customFields: {
+    supabaseUrl: process.env.SUPABASE_URL || 'https://your-project.supabase.co',
+    supabaseAnonKey: process.env.SUPABASE_ANON_KEY || 'your-anon-key',
+  },
+
   markdown: {
     mermaid: true,
   },

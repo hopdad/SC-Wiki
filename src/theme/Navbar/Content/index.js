@@ -8,6 +8,7 @@ import NavbarLogo from '@theme/Navbar/Logo';
 import NavbarSearch from '@theme/Navbar/Search';
 import SearchBar from '@theme/SearchBar';
 import DyslexicToggle from '../../NavbarItem/DyslexicToggle';
+import UserMenu from '../../NavbarItem/UserMenu';
 import styles from './styles.module.css';
 
 function NavbarItems({items}) {
@@ -49,6 +50,7 @@ export default function NavbarContent() {
           <NavbarItems items={rightItems} />
           <DyslexicToggle />
           <NavbarColorModeToggle />
+          <UserMenu />
           {!searchBarItem && <NavbarSearch><SearchBar /></NavbarSearch>}
         </>
       }
