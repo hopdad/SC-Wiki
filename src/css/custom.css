@@ -1,0 +1,163 @@
+/**
+ * Meijer Supply Chain Wiki - Custom Styles
+ * Meijer brand colors: Red (#E31837), Dark Blue (#003DA5), White
+ */
+
+/* ============================================
+   FONTS - OpenDyslexic for accessibility
+   Loaded via CDN import
+   ============================================ */
+@import url('https://fonts.cdnfonts.com/css/opendyslexic');
+
+/* Dyslexic font mode - toggled via data attribute */
+[data-dyslexic-font='true'] {
+  --ifm-font-family-base: 'OpenDyslexic', sans-serif;
+  --ifm-heading-font-family: 'OpenDyslexic', sans-serif;
+  --ifm-font-size-base: 105%;
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+  word-spacing: 0.15em;
+}
+
+/* ============================================
+   MEIJER BRAND - Light Theme
+   ============================================ */
+:root {
+  /* Primary: Meijer Red */
+  --ifm-color-primary: #E31837;
+  --ifm-color-primary-dark: #cc1531;
+  --ifm-color-primary-darker: #c0142e;
+  --ifm-color-primary-darkest: #9e1026;
+  --ifm-color-primary-light: #e6304d;
+  --ifm-color-primary-lighter: #e83c57;
+  --ifm-color-primary-lightest: #ec6175;
+
+  /* Accent: Meijer Blue */
+  --meijer-blue: #003DA5;
+  --meijer-blue-light: #0050D4;
+  --meijer-red: #E31837;
+  --meijer-white: #FFFFFF;
+  --meijer-gray-light: #F5F5F5;
+  --meijer-gray: #6B7280;
+
+  --ifm-code-font-size: 95%;
+  --ifm-font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Navbar */
+  --ifm-navbar-background-color: var(--meijer-blue);
+  --ifm-navbar-link-color: var(--meijer-white);
+  --ifm-navbar-link-hover-color: #cce0ff;
+
+  /* Footer */
+  --ifm-footer-background-color: #001F52;
+  --ifm-footer-color: #e0e0e0;
+}
+
+/* ============================================
+   MEIJER BRAND - Dark Theme
+   ============================================ */
+[data-theme='dark'] {
+  --ifm-color-primary: #FF4D6A;
+  --ifm-color-primary-dark: #ff2a4d;
+  --ifm-color-primary-darker: #ff193f;
+  --ifm-color-primary-darkest: #e50020;
+  --ifm-color-primary-light: #ff7087;
+  --ifm-color-primary-lighter: #ff8195;
+  --ifm-color-primary-lightest: #ffb3c1;
+
+  --meijer-blue: #4D8FFF;
+  --meijer-blue-light: #6DA3FF;
+
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  --ifm-navbar-background-color: #0a1929;
+  --ifm-navbar-link-color: #e0e0e0;
+  --ifm-navbar-link-hover-color: #FF4D6A;
+
+  --ifm-footer-background-color: #0a1929;
+}
+
+/* ============================================
+   NAVBAR STYLING
+   ============================================ */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.navbar__title {
+  color: var(--meijer-white);
+  font-weight: 700;
+}
+
+[data-theme='dark'] .navbar__title {
+  color: #e0e0e0;
+}
+
+/* ============================================
+   HERO / HOMEPAGE
+   ============================================ */
+.hero--primary {
+  background: linear-gradient(135deg, var(--meijer-blue) 0%, #001F52 100%);
+  color: white;
+}
+
+[data-theme='dark'] .hero--primary {
+  background: linear-gradient(135deg, #0a1929 0%, #1a2940 100%);
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+.menu__link--active:not(.menu__link--sublist) {
+  border-left: 3px solid var(--ifm-color-primary);
+  padding-left: calc(var(--ifm-menu-link-padding-horizontal) - 3px);
+}
+
+/* ============================================
+   CONTENT ENHANCEMENTS
+   ============================================ */
+.markdown h1 {
+  border-bottom: 2px solid var(--ifm-color-primary);
+  padding-bottom: 0.3em;
+}
+
+/* Status badges */
+.badge--production {
+  background-color: #059669;
+  color: white;
+}
+
+.badge--development {
+  background-color: #D97706;
+  color: white;
+}
+
+.badge--deprecated {
+  background-color: #DC2626;
+  color: white;
+}
+
+/* ============================================
+   ACCESSIBILITY TOGGLE BUTTON
+   ============================================ */
+.dyslexic-toggle {
+  cursor: pointer;
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  color: var(--ifm-navbar-link-color);
+  margin-right: 8px;
+  transition: background-color 0.2s;
+}
+
+.dyslexic-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dyslexic-toggle--active {
+  background-color: rgba(255, 255, 255, 0.2);
+  font-weight: bold;
+}
