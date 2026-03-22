@@ -468,3 +468,305 @@
   from { opacity: 0; transform: translateY(-8px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ============================================
+   DIFF VIEW
+   ============================================ */
+.sc-diff {
+  margin: 0.75rem 0;
+}
+
+.sc-diff-toolbar {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.sc-diff-unified,
+.sc-diff-sbs {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.sc-diff-line {
+  display: flex;
+  white-space: pre;
+}
+
+.sc-diff-line--removed {
+  background-color: #ffeef0;
+}
+
+.sc-diff-line--added {
+  background-color: #e6ffec;
+}
+
+[data-theme='dark'] .sc-diff-line--removed {
+  background-color: rgba(248, 81, 73, 0.15);
+}
+
+[data-theme='dark'] .sc-diff-line--added {
+  background-color: rgba(63, 185, 80, 0.15);
+}
+
+.sc-diff-gutter {
+  display: inline-block;
+  width: 3ch;
+  padding: 0 0.5ch;
+  text-align: right;
+  color: var(--ifm-color-emphasis-500);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.sc-diff-prefix {
+  display: inline-block;
+  width: 2ch;
+  text-align: center;
+  user-select: none;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.sc-diff-line--removed .sc-diff-prefix {
+  color: #cf222e;
+}
+
+.sc-diff-line--added .sc-diff-prefix {
+  color: #1a7f37;
+}
+
+[data-theme='dark'] .sc-diff-line--removed .sc-diff-prefix {
+  color: #f85149;
+}
+
+[data-theme='dark'] .sc-diff-line--added .sc-diff-prefix {
+  color: #3fb950;
+}
+
+.sc-diff-text {
+  flex: 1;
+  padding-right: 1rem;
+}
+
+.sc-diff-empty {
+  margin: 0.5rem 0;
+}
+
+/* Side-by-side */
+.sc-diff-sbs-header {
+  display: flex;
+  font-weight: 600;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.sc-diff-sbs-half {
+  width: 50%;
+  display: flex;
+  white-space: pre;
+  overflow: hidden;
+  padding: 0 0.25rem;
+}
+
+.sc-diff-sbs-half--left {
+  border-right: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.sc-diff-sbs-row {
+  display: flex;
+}
+
+.sc-diff-sbs--removed {
+  background-color: #ffeef0;
+}
+
+.sc-diff-sbs--added {
+  background-color: #e6ffec;
+}
+
+.sc-diff-sbs--empty {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .sc-diff-sbs--removed {
+  background-color: rgba(248, 81, 73, 0.15);
+}
+
+[data-theme='dark'] .sc-diff-sbs--added {
+  background-color: rgba(63, 185, 80, 0.15);
+}
+
+[data-theme='dark'] .sc-diff-sbs--empty {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* ============================================
+   DOC PAGE FOOTER ACTIONS (PRINT BUTTON)
+   ============================================ */
+.sc-doc-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1.5rem 0 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.sc-print-btn {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  /* Hide chrome: navbar, sidebar, footer, TOC, breadcrumbs, buttons */
+  .navbar,
+  .footer,
+  .theme-doc-sidebar-container,
+  .theme-doc-toc-desktop,
+  .theme-doc-toc-mobile,
+  .theme-doc-breadcrumbs,
+  .theme-doc-footer-edit-meta-row,
+  .pagination-nav,
+  .sc-print-btn,
+  .sc-doc-footer-actions,
+  .theme-doc-footer,
+  .theme-back-to-top-button,
+  [class*="announcementBar"],
+  [class*="colorModeToggle"] {
+    display: none !important;
+  }
+
+  /* Full width content */
+  .main-wrapper,
+  .docMainContainer,
+  [class*="docItemContainer"],
+  .container,
+  .row,
+  .col {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Page setup */
+  @page {
+    size: letter;
+    margin: 1in 0.75in;
+  }
+
+  @page :first {
+    margin-top: 1.5in;
+  }
+
+  /* Typography for print */
+  body {
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  h1 { font-size: 22pt; page-break-after: avoid; }
+  h2 { font-size: 16pt; page-break-after: avoid; }
+  h3 { font-size: 13pt; page-break-after: avoid; }
+  h4 { font-size: 11pt; page-break-after: avoid; }
+
+  /* Prevent orphans and widows */
+  p, li, blockquote {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Keep headings with following content */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Tables: keep together when possible */
+  table {
+    page-break-inside: avoid;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  table th,
+  table td {
+    border: 1px solid #ccc !important;
+    padding: 6px 10px;
+  }
+
+  /* Code blocks: keep together, use border for visibility */
+  pre, code {
+    background-color: #f5f5f5 !important;
+    border: 1px solid #ddd;
+    font-size: 9pt;
+  }
+
+  pre {
+    page-break-inside: avoid;
+    padding: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Links: show URL after link text */
+  .markdown a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #555;
+  }
+
+  /* Images: constrain to page width */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Mermaid diagrams */
+  .mermaid svg {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Admonitions */
+  .admonition, .alert {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  /* Details/summary: expand for print */
+  details {
+    display: block !important;
+  }
+
+  details > summary {
+    display: none !important;
+  }
+
+  details > *:not(summary) {
+    display: block !important;
+  }
+
+  /* Page title header for printed output */
+  h1::before {
+    content: "Meijer SC-Wiki — ";
+    font-size: 10pt;
+    font-weight: normal;
+    color: #666;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+}

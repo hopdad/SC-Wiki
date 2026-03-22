@@ -5,6 +5,7 @@ import {useProposals} from '../hooks/useProposals';
 import ConfirmDialog from '../components/ConfirmDialog';
 import ErrorAlert from '../components/ErrorAlert';
 import Pagination from '../components/Pagination';
+import DiffView from '../components/DiffView';
 
 function ReviewQueue() {
   const {isReviewer, isAuthenticated, profile, user} = useAuth();
@@ -104,8 +105,12 @@ function ReviewQueue() {
                       <td colSpan={6}>
                         <div className="sc-content-panel">
                           {p.description && <p><strong>Description:</strong> {p.description}</p>}
+                          <details open>
+                            <summary>View Changes</summary>
+                            <DiffView original={p.original_content} proposed={p.content_diff} />
+                          </details>
                           <details>
-                            <summary>View Proposed Content</summary>
+                            <summary>View Full Proposed Content</summary>
                             <pre className="sc-code-preview">{p.content_diff}</pre>
                           </details>
 
