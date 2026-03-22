@@ -7,6 +7,20 @@ import ConfirmDialog from '../components/ConfirmDialog';
 import ErrorAlert from '../components/ErrorAlert';
 import Pagination from '../components/Pagination';
 
+function formatDetails(details) {
+  if (!details) return '—';
+  if (details.new_role) return `Role changed to ${ROLE_LABELS[details.new_role] || details.new_role}`;
+  if (details.resulting_status) {
+    const parts = [`Status → ${details.resulting_status}`];
+    if (details.approval_count !== undefined) parts.push(`(${details.approval_count}/${details.required} approvals)`);
+    if (details.comment) parts.push(`— "${details.comment}"`);
+    return parts.join(' ');
+  }
+  if (details.new_manager_id) return 'Manager updated';
+  if (details.comment) return `Comment: "${details.comment}"`;
+  return JSON.stringify(details);
+}
+
 function UserManagement() {
   const {isAdmin, user} = useAuth();
   const [users, setUsers] = useState([]);
@@ -14,6 +28,7 @@ function UserManagement() {
   const [filter, setFilter] = useState('');
   const [roleConfirm, setRoleConfirm] = useState(null);
   const [actionError, setActionError] = useState(null);
+  const [successMsg, setSuccessMsg] = useState(null);
 
   useEffect(() => {
     fetchUsers();
@@ -31,9 +46,14 @@ function UserManagement() {
     setLoading(false);
   }
 
+  function showSuccess(msg) {
+    setSuccessMsg(msg);
+    setTimeout(() => setSuccessMsg(null), 3000);
+  }
+
   async function confirmRoleChange() {
     if (!roleConfirm) return;
-    const {userId, newRole} = roleConfirm;
+    const {userId, newRole, userName} = roleConfirm;
     setRoleConfirm(null);
 
     const sb = getSupabase();
@@ -59,6 +79,7 @@ function UserManagement() {
       }),
       fetchUsers(),
     ]);
+    showSuccess(`${userName}'s role updated to ${ROLE_LABELS[newRole]}`);
   }
 
   async function updateManager(userId, managerId) {
@@ -85,6 +106,7 @@ function UserManagement() {
       }),
       fetchUsers(),
     ]);
+    showSuccess('Manager updated');
   }
 
   if (!isAdmin) {
@@ -101,6 +123,9 @@ function UserManagement() {
   return (
     <div>
       <ErrorAlert error={actionError} onDismiss={() => setActionError(null)} />
+      {successMsg && (
+        <div className="alert alert--success sc-success-toast">{successMsg}</div>
+      )}
       <div className="sc-alert-mb">
         <input
           type="text"
@@ -110,6 +135,7 @@ function UserManagement() {
           onChange={(e) => setFilter(e.target.value)}
         />
       </div>
+      <div className="sc-table-responsive">
       <table className="sc-table">
         <thead>
           <tr>
@@ -132,6 +158,7 @@ function UserManagement() {
                   onChange={(e) => setRoleConfirm({
                     userId: u.id,
                     newRole: e.target.value,
+                    oldRole: u.role,
                     userName: u.display_name || u.email,
                   })}
                 >
@@ -165,11 +192,12 @@ function UserManagement() {
           ))}
         </tbody>
       </table>
+      </div>
 
       <ConfirmDialog
         open={!!roleConfirm}
         title="Change user role?"
-        message={roleConfirm ? `Change ${roleConfirm.userName}'s role to ${ROLE_LABELS[roleConfirm.newRole]}?` : ''}
+        message={roleConfirm ? `Change ${roleConfirm.userName}'s role from ${ROLE_LABELS[roleConfirm.oldRole]} to ${ROLE_LABELS[roleConfirm.newRole]}?` : ''}
         confirmLabel="Change Role"
         confirmStyle="warning"
         onConfirm={confirmRoleChange}
@@ -206,6 +234,7 @@ function ApprovalRules() {
   return (
     <div className="sc-section-mt">
       <h2>Approval Rules</h2>
+      <div className="sc-table-responsive">
       <table className="sc-table">
         <thead>
           <tr>
@@ -226,6 +255,7 @@ function ApprovalRules() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
@@ -269,6 +299,7 @@ function AuditLog() {
   return (
     <div className="sc-section-mt">
       <h2>Audit Log ({totalCount} entries)</h2>
+      <div className="sc-table-responsive">
       <table className="sc-table sc-table--sm">
         <thead>
           <tr>
@@ -284,11 +315,12 @@ function AuditLog() {
               <td>{new Date(l.created_at).toLocaleString()}</td>
               <td>{l.actor?.display_name || l.actor?.email || 'System'}</td>
               <td><code>{l.action}</code></td>
-              <td>{l.details ? JSON.stringify(l.details) : '—'}</td>
+              <td>{formatDetails(l.details)}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      </div>
       <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
     </div>
   );

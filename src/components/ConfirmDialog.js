@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 export default function ConfirmDialog({
   open,
@@ -9,6 +9,15 @@ export default function ConfirmDialog({
   onConfirm,
   onCancel,
 }) {
+  useEffect(() => {
+    if (!open) return;
+    function handleKey(e) {
+      if (e.key === 'Escape') onCancel();
+    }
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [open, onCancel]);
+
   if (!open) return null;
 
   return (
@@ -23,7 +32,7 @@ export default function ConfirmDialog({
         <h3>{title}</h3>
         <p>{message}</p>
         <div className="sc-button-row sc-button-row--end">
-          <button className="button button--outline button--sm" onClick={onCancel}>
+          <button className="button button--outline button--sm" onClick={onCancel} autoFocus>
             Cancel
           </button>
           <button className={`button button--${confirmStyle} button--sm`} onClick={onConfirm}>

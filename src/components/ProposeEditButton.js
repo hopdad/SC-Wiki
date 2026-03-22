@@ -22,7 +22,13 @@ export default function ProposeEditButton({docPath, currentContent}) {
     );
   }
 
-  if (!isEditor) return null;
+  if (!isEditor) {
+    return (
+      <p className="sc-text-sm sc-text-muted sc-section-mt">
+        Want to suggest edits? Ask your manager for Editor access.
+      </p>
+    );
+  }
 
   if (success) {
     return (
@@ -80,18 +86,18 @@ export default function ProposeEditButton({docPath, currentContent}) {
 
       <form onSubmit={handleSubmit}>
         <div className="sc-form-group">
-          <label className="sc-form-label">Title</label>
-          <input type="text" className="sc-form-input" value={title} onChange={(e) => setTitle(e.target.value)}
+          <label className="sc-form-label" htmlFor="propose-title">Title</label>
+          <input id="propose-title" type="text" className="sc-form-input" value={title} onChange={(e) => setTitle(e.target.value)}
             placeholder="Brief summary of your change" required />
         </div>
         <div className="sc-form-group">
-          <label className="sc-form-label">Description</label>
-          <input type="text" className="sc-form-input" value={description} onChange={(e) => setDescription(e.target.value)}
+          <label className="sc-form-label" htmlFor="propose-desc">Description</label>
+          <input id="propose-desc" type="text" className="sc-form-input" value={description} onChange={(e) => setDescription(e.target.value)}
             placeholder="Why is this change needed?" />
         </div>
         <div className="sc-form-group">
-          <label className="sc-form-label">Proposed Content (Markdown)</label>
-          <textarea className="sc-form-textarea" value={content} onChange={(e) => setContent(e.target.value)}
+          <label className="sc-form-label" htmlFor="propose-content">Proposed Content (Markdown)</label>
+          <textarea id="propose-content" className="sc-form-textarea" value={content} onChange={(e) => setContent(e.target.value)}
             rows={12} required />
         </div>
         <div className="sc-button-row">

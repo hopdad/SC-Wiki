@@ -22,9 +22,8 @@ function HomepageHeader() {
             Get Started
           </Link>
           <Link
-            className="button button--outline button--lg"
-            to="/docs/systems/overview"
-            style={{marginLeft: '1rem', color: 'white', borderColor: 'white'}}>
+            className="button button--outline button--lg sc-btn-hero-outline"
+            to="/docs/systems/overview">
             View Systems
           </Link>
         </div>

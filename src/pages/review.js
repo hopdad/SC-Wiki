@@ -60,6 +60,7 @@ function ReviewQueue() {
       {reviewableProposals.length === 0 ? (
         <div className="alert alert--info">No proposals pending your review.</div>
       ) : (
+        <div className="sc-table-responsive">
         <table className="sc-table">
           <thead>
             <tr>
@@ -81,7 +82,10 @@ function ReviewQueue() {
                     <td><code>{p.doc_path}</code></td>
                     <td>{p.author?.display_name || p.author?.email || 'Unknown'}</td>
                     <td>
-                      <span className={progress.met ? 'sc-approval-met' : 'sc-approval-pending'}>
+                      <span
+                        className={progress.met ? 'sc-approval-met' : 'sc-approval-pending'}
+                        title={`Requires ${progress.required} approval(s) for ${p.doc_path}`}
+                      >
                         {progress.current}/{progress.required}
                       </span>
                     </td>
@@ -110,8 +114,8 @@ function ReviewQueue() {
                               <strong>Previous Actions:</strong>
                               <ul>
                                 {p.approval_actions.map((a) => (
-                                  <li key={a.id}>
-                                    {a.reviewer?.display_name || 'Unknown'} — <em>{a.action}</em>
+                                  <li key={a.id} style={a.reviewer?.id === user?.id ? {fontWeight: 600} : undefined}>
+                                    {a.reviewer?.display_name || 'Unknown'}{a.reviewer?.id === user?.id ? ' (you)' : ''} — <em>{a.action}</em>
                                     {a.comment && `: ${a.comment}`}
                                     {' '}({new Date(a.created_at).toLocaleDateString()})
                                   </li>
@@ -153,6 +157,7 @@ function ReviewQueue() {
             })}
           </tbody>
         </table>
+        </div>
       )}
 
       <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
@@ -193,6 +198,7 @@ function ApprovedQueue() {
     <div className="sc-section-mt">
       <h2>Ready to Publish ({proposals.length})</h2>
       <ErrorAlert error={publishError} onDismiss={() => setPublishError(null)} />
+      <div className="sc-table-responsive">
       <table className="sc-table">
         <thead>
           <tr>
@@ -219,6 +225,7 @@ function ApprovedQueue() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

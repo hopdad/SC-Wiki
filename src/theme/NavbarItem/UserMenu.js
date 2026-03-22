@@ -4,7 +4,7 @@ import {useNotifications} from '../../hooks/useNotifications';
 import {ROLE_LABELS, ROLE_COLORS} from '../../lib/roles';
 
 export default function UserMenu() {
-  const {isAuthenticated, isReviewer, isAdmin, role, profile, signIn, signOut, loading} = useAuth();
+  const {isAuthenticated, isReviewer, isAdmin, role, profile, signIn, signOut, loading, error, clearError} = useAuth();
   const {pendingCount} = useNotifications();
 
   if (loading) {
@@ -13,9 +13,17 @@ export default function UserMenu() {
 
   if (!isAuthenticated) {
     return (
-      <button className="navbar__item navbar__link sc-unstyled-btn" onClick={signIn}>
-        Sign In
-      </button>
+      <>
+        {error && (
+          <span className="navbar__item sc-text-sm" style={{color: '#FF4D6A'}} title={error}>
+            Sign-in failed
+            <button className="sc-unstyled-btn sc-dismiss-btn sc-text-sm" onClick={clearError} style={{color: '#FF4D6A'}}>x</button>
+          </span>
+        )}
+        <button className="navbar__item navbar__link sc-unstyled-btn" onClick={signIn}>
+          Sign In
+        </button>
+      </>
     );
   }
 

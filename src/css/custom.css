@@ -388,3 +388,83 @@
   gap: 0.5rem;
   margin-top: 1rem;
 }
+
+/* ============================================
+   HOMEPAGE FEATURE CARDS
+   ============================================ */
+.sc-feature-card {
+  display: block;
+  padding: 2rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.sc-feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: inherit;
+}
+
+[data-theme='dark'] .sc-feature-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.sc-btn-hero-outline {
+  margin-left: 1rem;
+  color: white;
+  border-color: white;
+}
+
+.sc-btn-hero-outline:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+/* ============================================
+   RESPONSIVE TABLES
+   ============================================ */
+.sc-table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  .sc-table-responsive .sc-table {
+    min-width: 600px;
+  }
+  .sc-form-input--search {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* ============================================
+   FOCUS INDICATORS
+   ============================================ */
+.sc-form-input:focus-visible,
+.sc-form-textarea:focus-visible,
+.sc-select:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.sc-unstyled-btn:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   SUCCESS TOAST
+   ============================================ */
+.sc-success-toast {
+  margin-bottom: 1rem;
+  animation: sc-fadeIn 0.3s ease-in;
+}
+
+@keyframes sc-fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

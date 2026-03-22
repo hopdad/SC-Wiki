@@ -1,10 +1,12 @@
 import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
 const FeatureList = [
   {
     title: 'Supply Chain Knowledge',
+    link: '/docs/supply-chain/overview',
     description: (
       <>
         Comprehensive documentation of Meijer's end-to-end supply chain —
@@ -14,6 +16,7 @@ const FeatureList = [
   },
   {
     title: 'Software Systems',
+    link: '/docs/systems/overview',
     description: (
       <>
         Detailed guides for WMS, TMS, inventory systems, and integrations.
@@ -23,6 +26,7 @@ const FeatureList = [
   },
   {
     title: 'Integrations & EDI',
+    link: '/docs/systems/integrations/overview',
     description: (
       <>
         EDI transaction sets, API documentation, data flow diagrams,
@@ -32,13 +36,13 @@ const FeatureList = [
   },
 ];
 
-function Feature({title, description}) {
+function Feature({title, link, description}) {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--center padding-horiz--md" style={{padding: '2rem 1rem'}}>
+      <Link to={link} className="sc-feature-card text--center">
         <Heading as="h3">{title}</Heading>
         <p>{description}</p>
-      </div>
+      </Link>
     </div>
   );
 }

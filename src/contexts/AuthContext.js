@@ -35,6 +35,7 @@ export function AuthProvider({children}) {
       async (_event, session) => {
         setUser(session?.user ?? null);
         if (session?.user) {
+          setError(null);
           await fetchProfile(session.user.id);
         } else {
           setProfile(null);
