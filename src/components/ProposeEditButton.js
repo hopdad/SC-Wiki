@@ -1,14 +1,10 @@
 import React, {useState} from 'react';
 import {useAuth} from '../contexts/AuthContext';
-import {useProposals} from '../hooks/useProposals';
+import {useProposalMutations} from '../hooks/useProposals';
 
-/**
- * A button that editors can use on any doc page to propose an edit.
- * Shows an inline editor when clicked.
- */
 export default function ProposeEditButton({docPath, currentContent}) {
   const {isEditor, isAuthenticated, signIn} = useAuth();
-  const {createProposal, submitForReview} = useProposals();
+  const {createProposal, submitForReview} = useProposalMutations();
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -57,7 +53,6 @@ export default function ProposeEditButton({docPath, currentContent}) {
     e.preventDefault();
     setErrorMsg(null);
 
-    // Validate content is actually different
     if (content.trim() === (currentContent || '').trim()) {
       setErrorMsg('Your proposed content is identical to the current content.');
       return;

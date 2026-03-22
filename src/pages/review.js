@@ -101,7 +101,7 @@ function ReviewQueue() {
                     <td>
                       <button
                         className="button button--sm button--outline"
-                        onClick={() => setActiveId(activeId === p.id ? null : p.id)}
+                        onClick={() => { setActiveId(activeId === p.id ? null : p.id); setComment(''); }}
                       >
                         {activeId === p.id ? 'Close' : 'Review'}
                       </button>
@@ -203,15 +203,17 @@ function ApprovedQueue() {
   const {isReviewer} = useAuth();
   const {proposals, loading, publishProposal} = useProposals({status: 'approved'});
   const [processing, setProcessing] = useState(false);
+  const [publishError, setPublishError] = useState(null);
 
   if (!isReviewer || loading || proposals.length === 0) return null;
 
   async function handlePublish(id) {
     setProcessing(true);
+    setPublishError(null);
     try {
       await publishProposal(id);
     } catch (err) {
-      alert('Error publishing: ' + err.message);
+      setPublishError(err.message);
     }
     setProcessing(false);
   }
@@ -219,6 +221,12 @@ function ApprovedQueue() {
   return (
     <div style={{marginTop: '2rem'}}>
       <h2>Ready to Publish ({proposals.length})</h2>
+      {publishError && (
+        <div className="alert alert--danger" style={{marginBottom: '0.5rem'}}>
+          {publishError}
+          <button className="button button--sm button--link" onClick={() => setPublishError(null)} style={{marginLeft: 8}}>Dismiss</button>
+        </div>
+      )}
       <table style={{width: '100%'}}>
         <thead>
           <tr>

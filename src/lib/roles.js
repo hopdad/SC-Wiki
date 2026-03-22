@@ -1,8 +1,7 @@
-// Centralized role definitions used across the app
-
 export const ROLES = ['viewer', 'editor', 'reviewer', 'admin'];
 
-export const ROLE_HIERARCHY = ['viewer', 'editor', 'reviewer', 'admin'];
+// ROLES doubles as the hierarchy — index determines permission level
+export const ROLE_HIERARCHY = ROLES;
 
 export const ROLE_LABELS = {
   viewer: 'Viewer',
@@ -27,9 +26,6 @@ export const STATUS_LABELS = {
   published: {label: 'Published', color: '#2563EB'},
 };
 
-/**
- * Check if a role meets a minimum role requirement.
- */
 export function hasMinRole(userRole, minRole) {
-  return ROLE_HIERARCHY.indexOf(userRole || 'viewer') >= ROLE_HIERARCHY.indexOf(minRole);
+  return ROLES.indexOf(userRole || 'viewer') >= ROLES.indexOf(minRole);
 }

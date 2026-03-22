@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState, useEffect} from 'react';
+import React, {createContext, useContext, useState, useEffect, useCallback, useMemo} from 'react';
 import {getSupabase} from '../lib/supabase';
 import {hasMinRole} from '../lib/roles';
 
@@ -17,7 +17,6 @@ export function AuthProvider({children}) {
       return;
     }
 
-    // Get initial session
     sb.auth.getSession().then(({data: {session}, error: sessionError}) => {
       if (sessionError) {
         setError(sessionError.message);
@@ -32,7 +31,6 @@ export function AuthProvider({children}) {
       }
     });
 
-    // Listen for auth changes
     const {data: {subscription}} = sb.auth.onAuthStateChange(
       async (_event, session) => {
         setUser(session?.user ?? null);
@@ -68,7 +66,7 @@ export function AuthProvider({children}) {
     setLoading(false);
   }
 
-  async function signIn() {
+  const signIn = useCallback(async () => {
     const sb = getSupabase();
     if (!sb) return;
     const {error: signInError} = await sb.auth.signInWithOAuth({
@@ -76,38 +74,37 @@ export function AuthProvider({children}) {
       options: {scopes: 'email profile'},
     });
     if (signInError) setError(signInError.message);
-  }
+  }, []);
 
-  async function signOut() {
+  const signOut = useCallback(async () => {
     const sb = getSupabase();
     if (!sb) return;
     await sb.auth.signOut();
     setUser(null);
     setProfile(null);
     setError(null);
-  }
+  }, []);
 
-  function clearError() {
-    setError(null);
-  }
+  const clearError = useCallback(() => setError(null), []);
 
-  const role = profile?.role || 'viewer';
-
-  const value = {
-    user,
-    profile,
-    loading,
-    error,
-    clearError,
-    signIn,
-    signOut,
-    isAuthenticated: !!user,
-    isViewer: !!profile,
-    isEditor: hasMinRole(role, 'editor'),
-    isReviewer: hasMinRole(role, 'reviewer'),
-    isAdmin: hasMinRole(role, 'admin'),
-    role,
-  };
+  const value = useMemo(() => {
+    const role = profile?.role || 'viewer';
+    return {
+      user,
+      profile,
+      loading,
+      error,
+      clearError,
+      signIn,
+      signOut,
+      isAuthenticated: !!user,
+      isViewer: !!profile,
+      isEditor: hasMinRole(role, 'editor'),
+      isReviewer: hasMinRole(role, 'reviewer'),
+      isAdmin: hasMinRole(role, 'admin'),
+      role,
+    };
+  }, [user, profile, loading, error, clearError, signIn, signOut]);
 
   return (
     <AuthContext.Provider value={value}>

@@ -12,12 +12,13 @@ function MyProposals() {
   const {
     proposals, loading, error, totalPages,
     submitForReview, cancelProposal, updateProposal,
-  } = useProposals({page});
+  } = useProposals({authorId: user?.id, page});
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState('');
   const [editDesc, setEditDesc] = useState('');
   const [editContent, setEditContent] = useState('');
   const [saving, setSaving] = useState(false);
+  const [actionError, setActionError] = useState(null);
   const [cancelConfirm, setCancelConfirm] = useState(null);
 
   if (!isAuthenticated) {
@@ -27,9 +28,7 @@ function MyProposals() {
   if (loading) return <p>Loading...</p>;
   if (error) return <div className="alert alert--danger">Error: {error}</div>;
 
-  const myProposals = proposals.filter((p) => p.author_id === user.id);
-
-  if (myProposals.length === 0) {
+  if (proposals.length === 0) {
     return (
       <div className="alert alert--info">
         You haven't created any edit proposals yet. Use the "Propose Edit" button on any doc page.
@@ -46,26 +45,35 @@ function MyProposals() {
 
   async function saveEdit(id) {
     setSaving(true);
+    setActionError(null);
     try {
       await updateProposal(id, {title: editTitle, description: editDesc, contentDiff: editContent});
       setEditingId(null);
     } catch (err) {
-      alert('Error saving: ' + err.message);
+      setActionError(err.message);
     }
     setSaving(false);
   }
 
   async function handleCancel(id) {
     setCancelConfirm(null);
+    setActionError(null);
     try {
       await cancelProposal(id);
     } catch (err) {
-      alert('Error cancelling: ' + err.message);
+      setActionError(err.message);
     }
   }
 
   return (
     <div>
+      {actionError && (
+        <div className="alert alert--danger" style={{marginBottom: '1rem'}}>
+          {actionError}
+          <button className="button button--sm button--link" onClick={() => setActionError(null)} style={{marginLeft: 8}}>Dismiss</button>
+        </div>
+      )}
+
       <table style={{width: '100%'}}>
         <thead>
           <tr>
@@ -78,7 +86,7 @@ function MyProposals() {
           </tr>
         </thead>
         <tbody>
-          {myProposals.map((p) => {
+          {proposals.map((p) => {
             const badge = STATUS_LABELS[p.status] || STATUS_LABELS.draft;
             const isEditing = editingId === p.id;
 

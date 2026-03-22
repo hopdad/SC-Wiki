@@ -3,49 +3,52 @@ import {getSupabase} from '../lib/supabase';
 import {useAuth} from '../contexts/AuthContext';
 
 /**
- * Hook for in-app notification badge.
- * Returns count of proposals needing the current user's attention.
+ * In-app notification badge for reviewers/admins/managers.
+ * Returns count of proposals pending review.
  */
 export function useNotifications() {
-  const {user, profile, isReviewer} = useAuth();
+  const {user, isReviewer} = useAuth();
   const [pendingCount, setPendingCount] = useState(0);
 
   useEffect(() => {
     const sb = getSupabase();
-    if (!sb || !user) return;
+    if (!sb || !user || !isReviewer) return;
+
+    let mounted = true;
+
+    async function fetchCount() {
+      const {count, error} = await sb
+        .from('edit_proposals')
+        .select('id', {count: 'exact', head: true})
+        .eq('status', 'pending_review');
+
+      if (!error && mounted) {
+        setPendingCount((prev) => (prev === (count || 0)) ? prev : (count || 0));
+      }
+    }
 
     fetchCount();
 
-    // Subscribe to real-time changes on edit_proposals
+    // Subscribe only to status changes on pending_review proposals
     const channel = sb
       .channel('proposal-notifications')
       .on(
         'postgres_changes',
-        {event: '*', schema: 'public', table: 'edit_proposals'},
+        {event: 'UPDATE', schema: 'public', table: 'edit_proposals'},
+        () => fetchCount()
+      )
+      .on(
+        'postgres_changes',
+        {event: 'INSERT', schema: 'public', table: 'edit_proposals'},
         () => fetchCount()
       )
       .subscribe();
 
     return () => {
+      mounted = false;
       sb.removeChannel(channel);
     };
-  }, [user, profile]);
+  }, [user, isReviewer]);
 
-  async function fetchCount() {
-    const sb = getSupabase();
-    if (!sb || !user) return;
-
-    // For reviewers/admins: count proposals pending review
-    // For managers: count proposals from their direct reports
-    const {count, error} = await sb
-      .from('edit_proposals')
-      .select('id', {count: 'exact', head: true})
-      .eq('status', 'pending_review');
-
-    if (!error) {
-      setPendingCount(count || 0);
-    }
-  }
-
-  return {pendingCount, refresh: fetchCount};
+  return {pendingCount};
 }

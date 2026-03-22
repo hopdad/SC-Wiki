@@ -29,7 +29,7 @@ CREATE INDEX IF NOT EXISTS idx_edit_proposals_updated
 CREATE TABLE IF NOT EXISTS public.notifications (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL REFERENCES public.user_profiles(id) ON DELETE CASCADE,
-  type text NOT NULL CHECK (type IN ('proposal_submitted', 'proposal_approved', 'proposal_rejected', 'proposal_changes_requested', 'proposal_comment', 'role_changed')),
+  type text NOT NULL CHECK (type IN ('proposal_submitted', 'proposal_approved', 'proposal_rejected', 'proposal_changes_requested', 'proposal_comment', 'proposal_published', 'role_changed')),
   proposal_id uuid REFERENCES public.edit_proposals(id) ON DELETE CASCADE,
   message text NOT NULL,
   read boolean DEFAULT false,
@@ -50,9 +50,8 @@ CREATE POLICY "Users can update own notifications"
   ON public.notifications FOR UPDATE
   USING (user_id = auth.uid());
 
-CREATE POLICY "System can insert notifications"
-  ON public.notifications FOR INSERT
-  WITH CHECK (auth.uid() IS NOT NULL);
+-- Only the trigger function (SECURITY DEFINER) inserts notifications.
+-- No direct INSERT policy for users — prevents notification spoofing.
 
 -- 6. Allow authors to cancel their own pending proposals
 CREATE POLICY "Authors can cancel own proposals"
@@ -127,7 +126,7 @@ BEGIN
     WHEN 'published' THEN
       v_message := 'Your proposal "' || NEW.title || '" has been published';
       INSERT INTO public.notifications (user_id, type, proposal_id, message)
-      VALUES (v_author_id, 'proposal_approved', NEW.id, v_message);
+      VALUES (v_author_id, 'proposal_published', NEW.id, v_message);
 
     ELSE
       NULL;

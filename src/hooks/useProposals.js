@@ -1,14 +1,68 @@
 import {useState, useEffect, useCallback} from 'react';
 import {getSupabase} from '../lib/supabase';
 import {useAuth} from '../contexts/AuthContext';
-import {checkApprovalStatus, canUserApprove} from '../lib/approvalRules';
+import {checkApprovalStatus, canUserApprove, findMatchingRule} from '../lib/approvalRules';
 
 const PAGE_SIZE = 20;
 
 /**
- * Hook for managing edit proposals with pagination, approval rules, and full CRUD.
+ * Hook for proposal mutations only — no list fetch.
+ * Use this when you only need to create/submit proposals (e.g., ProposeEditButton).
  */
-export function useProposals({docPath, status, page = 1} = {}) {
+export function useProposalMutations() {
+  const {user} = useAuth();
+
+  async function createProposal({docPath, title, description, contentDiff, originalContent}) {
+    const sb = getSupabase();
+    if (!sb) throw new Error('Not connected');
+
+    const {data, error} = await sb
+      .from('edit_proposals')
+      .insert({
+        doc_path: docPath,
+        title,
+        description,
+        content_diff: contentDiff,
+        original_content: originalContent,
+        author_id: user.id,
+        status: 'draft',
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  async function submitForReview(proposalId) {
+    const sb = getSupabase();
+    if (!sb) throw new Error('Not connected');
+
+    const {error} = await sb
+      .from('edit_proposals')
+      .update({status: 'pending_review'})
+      .eq('id', proposalId)
+      .eq('author_id', user.id)
+      .eq('status', 'draft');
+
+    if (error) throw error;
+
+    // Fire-and-forget audit log (non-blocking)
+    sb.from('audit_log').insert({
+      actor_id: user.id,
+      action: 'submit_for_review',
+      target_type: 'proposal',
+      target_id: proposalId,
+    });
+  }
+
+  return {createProposal, submitForReview};
+}
+
+/**
+ * Full hook for listing and managing proposals with pagination and approval rules.
+ */
+export function useProposals({docPath, status, authorId, page = 1} = {}) {
   const {user, profile} = useAuth();
   const [proposals, setProposals] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,11 +70,13 @@ export function useProposals({docPath, status, page = 1} = {}) {
   const [totalCount, setTotalCount] = useState(0);
   const [approvalRules, setApprovalRules] = useState([]);
 
-  // Fetch approval rules once
   useEffect(() => {
     const sb = getSupabase();
     if (!sb) return;
-    sb.from('approval_rules').select('*').then(({data}) => {
+    sb.from('approval_rules').select('*').then(({data, error: rulesError}) => {
+      if (rulesError) {
+        console.warn('Failed to load approval rules:', rulesError.message);
+      }
       setApprovalRules(data || []);
     });
   }, []);
@@ -53,6 +109,7 @@ export function useProposals({docPath, status, page = 1} = {}) {
 
     if (docPath) query = query.eq('doc_path', docPath);
     if (status) query = query.eq('status', status);
+    if (authorId) query = query.eq('author_id', authorId);
 
     const {data, error: fetchError, count} = await query;
     if (fetchError) {
@@ -62,37 +119,14 @@ export function useProposals({docPath, status, page = 1} = {}) {
       setTotalCount(count || 0);
     }
     setLoading(false);
-  }, [docPath, status, page]);
+  }, [docPath, status, authorId, page]);
 
   useEffect(() => {
     fetchProposals();
   }, [fetchProposals]);
 
-  // Create a new edit proposal
-  async function createProposal({docPath: path, title, description, contentDiff, originalContent}) {
-    const sb = getSupabase();
-    if (!sb) throw new Error('Not connected');
+  const {submitForReview} = useProposalMutations();
 
-    const {data, error: createError} = await sb
-      .from('edit_proposals')
-      .insert({
-        doc_path: path,
-        title,
-        description,
-        content_diff: contentDiff,
-        original_content: originalContent,
-        author_id: user.id,
-        status: 'draft',
-      })
-      .select()
-      .single();
-
-    if (createError) throw createError;
-    await fetchProposals();
-    return data;
-  }
-
-  // Update a draft proposal
   async function updateProposal(proposalId, {title, description, contentDiff}) {
     const sb = getSupabase();
     if (!sb) throw new Error('Not connected');
@@ -113,29 +147,6 @@ export function useProposals({docPath, status, page = 1} = {}) {
     await fetchProposals();
   }
 
-  // Submit a draft for review
-  async function submitForReview(proposalId) {
-    const sb = getSupabase();
-    if (!sb) throw new Error('Not connected');
-
-    const {error: submitError} = await sb
-      .from('edit_proposals')
-      .update({status: 'pending_review'})
-      .eq('id', proposalId);
-
-    if (submitError) throw submitError;
-
-    await sb.from('audit_log').insert({
-      actor_id: user.id,
-      action: 'submit_for_review',
-      target_type: 'proposal',
-      target_id: proposalId,
-    });
-
-    await fetchProposals();
-  }
-
-  // Cancel a proposal (author only)
   async function cancelProposal(proposalId) {
     const sb = getSupabase();
     if (!sb) throw new Error('Not connected');
@@ -148,22 +159,22 @@ export function useProposals({docPath, status, page = 1} = {}) {
 
     if (cancelError) throw cancelError;
 
-    await sb.from('audit_log').insert({
-      actor_id: user.id,
-      action: 'proposal_cancelled',
-      target_type: 'proposal',
-      target_id: proposalId,
-    });
-
-    await fetchProposals();
+    // Audit + refetch in parallel
+    await Promise.all([
+      sb.from('audit_log').insert({
+        actor_id: user.id,
+        action: 'proposal_cancelled',
+        target_type: 'proposal',
+        target_id: proposalId,
+      }),
+      fetchProposals(),
+    ]);
   }
 
-  // Review: approve, reject, request_changes, or comment
   async function reviewProposal(proposalId, action, comment) {
     const sb = getSupabase();
     if (!sb) throw new Error('Not connected');
 
-    // Insert the approval action
     const {error: actionError} = await sb
       .from('approval_actions')
       .insert({
@@ -175,12 +186,11 @@ export function useProposals({docPath, status, page = 1} = {}) {
 
     if (actionError) throw actionError;
 
-    // Determine new status based on action and approval rules
     let newStatus = 'pending_review';
     if (action === 'reject') {
       newStatus = 'rejected';
     } else if (action === 'approve') {
-      // Re-fetch the proposal to get updated approval count
+      // Re-fetch to get updated approval count for rules check
       const {data: refreshed} = await sb
         .from('edit_proposals')
         .select(`
@@ -209,18 +219,19 @@ export function useProposals({docPath, status, page = 1} = {}) {
       if (updateError) throw updateError;
     }
 
-    await sb.from('audit_log').insert({
-      actor_id: user.id,
-      action: `proposal_${action}`,
-      target_type: 'proposal',
-      target_id: proposalId,
-      details: {comment: comment || null, resulting_status: newStatus},
-    });
-
-    await fetchProposals();
+    // Audit + refetch in parallel
+    await Promise.all([
+      sb.from('audit_log').insert({
+        actor_id: user.id,
+        action: `proposal_${action}`,
+        target_type: 'proposal',
+        target_id: proposalId,
+        details: {comment: comment || null, resulting_status: newStatus},
+      }),
+      fetchProposals(),
+    ]);
   }
 
-  // Publish an approved proposal
   async function publishProposal(proposalId) {
     const sb = getSupabase();
     if (!sb) throw new Error('Not connected');
@@ -233,27 +244,23 @@ export function useProposals({docPath, status, page = 1} = {}) {
 
     if (pubError) throw pubError;
 
-    await sb.from('audit_log').insert({
-      actor_id: user.id,
-      action: 'proposal_published',
-      target_type: 'proposal',
-      target_id: proposalId,
-    });
-
-    await fetchProposals();
+    await Promise.all([
+      sb.from('audit_log').insert({
+        actor_id: user.id,
+        action: 'proposal_published',
+        target_type: 'proposal',
+        target_id: proposalId,
+      }),
+      fetchProposals(),
+    ]);
   }
 
-  // Check if current user can approve a specific proposal
   function canApprove(proposal) {
     if (!profile || !user) return false;
-    const rule = approvalRules.find((r) => {
-      const regex = new RegExp('^' + r.doc_path_pattern.replace(/\*/g, '.*') + '$');
-      return regex.test(proposal.doc_path);
-    });
+    const rule = findMatchingRule(proposal.doc_path, approvalRules);
     return canUserApprove(user.id, profile.role, proposal, rule);
   }
 
-  // Get approval progress for a proposal
   function getApprovalProgress(proposal) {
     return checkApprovalStatus(proposal, approvalRules);
   }
@@ -268,7 +275,6 @@ export function useProposals({docPath, status, page = 1} = {}) {
     totalPages,
     pageSize: PAGE_SIZE,
     approvalRules,
-    createProposal,
     updateProposal,
     submitForReview,
     cancelProposal,

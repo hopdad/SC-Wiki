@@ -11,7 +11,8 @@ function UserManagement() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('');
-  const [roleConfirm, setRoleConfirm] = useState(null); // {userId, newRole, userName}
+  const [roleConfirm, setRoleConfirm] = useState(null);
+  const [actionError, setActionError] = useState(null);
 
   useEffect(() => {
     fetchUsers();
@@ -43,19 +44,20 @@ function UserManagement() {
       .eq('id', userId);
 
     if (error) {
-      alert('Error updating role: ' + error.message);
+      setActionError('Error updating role: ' + error.message);
       return;
     }
 
-    await sb.from('audit_log').insert({
-      actor_id: user.id,
-      action: 'role_change',
-      target_type: 'user',
-      target_id: userId,
-      details: {new_role: newRole},
-    });
-
-    fetchUsers();
+    await Promise.all([
+      sb.from('audit_log').insert({
+        actor_id: user.id,
+        action: 'role_change',
+        target_type: 'user',
+        target_id: userId,
+        details: {new_role: newRole},
+      }),
+      fetchUsers(),
+    ]);
   }
 
   async function updateManager(userId, managerId) {
@@ -68,19 +70,20 @@ function UserManagement() {
       .eq('id', userId);
 
     if (error) {
-      alert('Error updating manager: ' + error.message);
+      setActionError('Error updating manager: ' + error.message);
       return;
     }
 
-    await sb.from('audit_log').insert({
-      actor_id: user.id,
-      action: 'manager_change',
-      target_type: 'user',
-      target_id: userId,
-      details: {new_manager_id: managerId || null},
-    });
-
-    fetchUsers();
+    await Promise.all([
+      sb.from('audit_log').insert({
+        actor_id: user.id,
+        action: 'manager_change',
+        target_type: 'user',
+        target_id: userId,
+        details: {new_manager_id: managerId || null},
+      }),
+      fetchUsers(),
+    ]);
   }
 
   if (!isAdmin) {
@@ -96,6 +99,12 @@ function UserManagement() {
 
   return (
     <div>
+      {actionError && (
+        <div className="alert alert--danger" style={{marginBottom: '1rem'}}>
+          {actionError}
+          <button className="button button--sm button--link" onClick={() => setActionError(null)} style={{marginLeft: 8}}>Dismiss</button>
+        </div>
+      )}
       <div style={{marginBottom: '1rem'}}>
         <input
           type="text"
@@ -172,10 +181,7 @@ function UserManagement() {
         confirmLabel="Change Role"
         confirmStyle="warning"
         onConfirm={confirmRoleChange}
-        onCancel={() => {
-          setRoleConfirm(null);
-          fetchUsers(); // Reset the select to original value
-        }}
+        onCancel={() => setRoleConfirm(null)}
       />
     </div>
   );
