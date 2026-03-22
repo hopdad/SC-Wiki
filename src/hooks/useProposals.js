@@ -1,7 +1,7 @@
 import {useState, useEffect, useCallback} from 'react';
 import {getSupabase} from '../lib/supabase';
 import {useAuth} from '../contexts/AuthContext';
-import {checkApprovalStatus, canUserApprove, findMatchingRule} from '../lib/approvalRules';
+import {canUserApprove, findMatchingRule, checkApprovalStatus} from '../lib/approvalRules';
 
 const PAGE_SIZE = 20;
 
@@ -175,61 +175,19 @@ export function useProposals({docPath, status, authorId, page = 1} = {}) {
     const sb = getSupabase();
     if (!sb) throw new Error('Not connected');
 
-    const {error: actionError} = await sb
-      .from('approval_actions')
-      .insert({
-        proposal_id: proposalId,
-        reviewer_id: user.id,
-        action,
-        comment: comment || null,
-      });
+    // Atomic: insert action + count approvals + update status + audit log
+    // all in a single Postgres transaction via RPC
+    const {data, error} = await sb.rpc('process_review_action', {
+      p_proposal_id: proposalId,
+      p_reviewer_id: user.id,
+      p_action: action,
+      p_comment: comment || null,
+    });
 
-    if (actionError) throw actionError;
+    if (error) throw error;
+    if (data?.error) throw new Error(data.error);
 
-    let newStatus = 'pending_review';
-    if (action === 'reject') {
-      newStatus = 'rejected';
-    } else if (action === 'approve') {
-      // Re-fetch to get updated approval count for rules check
-      const {data: refreshed} = await sb
-        .from('edit_proposals')
-        .select(`
-          *,
-          author:author_id(id, email, display_name, role, manager_id),
-          approval_actions(id, action, reviewer_id, reviewer:reviewer_id(id, email, display_name))
-        `)
-        .eq('id', proposalId)
-        .single();
-
-      if (refreshed) {
-        const approvalStatus = checkApprovalStatus(refreshed, approvalRules);
-        newStatus = approvalStatus.met ? 'approved' : 'pending_review';
-      } else {
-        newStatus = 'approved';
-      }
-    }
-    // 'request_changes' and 'comment' keep status as pending_review
-
-    if (action !== 'comment') {
-      const {error: updateError} = await sb
-        .from('edit_proposals')
-        .update({status: newStatus})
-        .eq('id', proposalId);
-
-      if (updateError) throw updateError;
-    }
-
-    // Audit + refetch in parallel
-    await Promise.all([
-      sb.from('audit_log').insert({
-        actor_id: user.id,
-        action: `proposal_${action}`,
-        target_type: 'proposal',
-        target_id: proposalId,
-        details: {comment: comment || null, resulting_status: newStatus},
-      }),
-      fetchProposals(),
-    ]);
+    await fetchProposals();
   }
 
   async function publishProposal(proposalId) {

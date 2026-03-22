@@ -100,21 +100,21 @@ function UserManagement() {
   return (
     <div>
       {actionError && (
-        <div className="alert alert--danger" style={{marginBottom: '1rem'}}>
+        <div className="alert alert--danger sc-alert-mb">
           {actionError}
-          <button className="button button--sm button--link" onClick={() => setActionError(null)} style={{marginLeft: 8}}>Dismiss</button>
+          <button className="button button--sm button--link sc-dismiss-btn" onClick={() => setActionError(null)}>Dismiss</button>
         </div>
       )}
-      <div style={{marginBottom: '1rem'}}>
+      <div className="sc-alert-mb">
         <input
           type="text"
+          className="sc-form-input sc-form-input--search"
           placeholder="Search users..."
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          style={{padding: '0.5rem', borderRadius: 4, border: '1px solid var(--ifm-color-emphasis-300)', width: 300}}
         />
       </div>
-      <table style={{width: '100%'}}>
+      <table className="sc-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -128,16 +128,16 @@ function UserManagement() {
           {filteredUsers.map((u) => (
             <tr key={u.id}>
               <td>{u.display_name}</td>
-              <td style={{fontSize: '0.85rem'}}>{u.email}</td>
+              <td className="sc-text-sm">{u.email}</td>
               <td>
                 <select
+                  className="sc-select"
                   value={u.role}
                   onChange={(e) => setRoleConfirm({
                     userId: u.id,
                     newRole: e.target.value,
                     userName: u.display_name || u.email,
                   })}
-                  style={{padding: '0.25rem', borderRadius: 4}}
                 >
                   {ROLES.map((r) => (
                     <option key={r} value={r}>{ROLE_LABELS[r]}</option>
@@ -146,9 +146,9 @@ function UserManagement() {
               </td>
               <td>
                 <select
+                  className="sc-select"
                   value={u.manager_id || ''}
                   onChange={(e) => updateManager(u.id, e.target.value)}
-                  style={{padding: '0.25rem', borderRadius: 4}}
                 >
                   <option value="">No manager</option>
                   {users
@@ -161,11 +161,7 @@ function UserManagement() {
                 </select>
               </td>
               <td>
-                <span style={{
-                  color: u.is_active ? '#059669' : '#DC2626',
-                  fontWeight: 600,
-                  fontSize: '0.85rem',
-                }}>
+                <span className={u.is_active ? 'sc-status-active' : 'sc-status-inactive'}>
                   {u.is_active ? 'Active' : 'Inactive'}
                 </span>
               </td>
@@ -212,9 +208,9 @@ function ApprovalRules() {
   if (loading) return <p>Loading rules...</p>;
 
   return (
-    <div style={{marginTop: '2rem'}}>
+    <div className="sc-section-mt">
       <h2>Approval Rules</h2>
-      <table style={{width: '100%'}}>
+      <table className="sc-table">
         <thead>
           <tr>
             <th>Doc Path Pattern</th>
@@ -275,9 +271,9 @@ function AuditLog() {
   const totalPages = Math.ceil(totalCount / AUDIT_PAGE_SIZE);
 
   return (
-    <div style={{marginTop: '2rem'}}>
+    <div className="sc-section-mt">
       <h2>Audit Log ({totalCount} entries)</h2>
-      <table style={{width: '100%', fontSize: '0.85rem'}}>
+      <table className="sc-table sc-table--sm">
         <thead>
           <tr>
             <th>When</th>
@@ -305,7 +301,7 @@ function AuditLog() {
 export default function AdminPage() {
   return (
     <Layout title="Admin" description="User and role management">
-      <div className="container" style={{padding: '2rem 0'}}>
+      <div className="container sc-container-pad">
         <h1>Admin Panel</h1>
         <UserManagement />
         <ApprovalRules />

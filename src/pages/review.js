@@ -16,9 +16,7 @@ function ReviewQueue() {
   const [comment, setComment] = useState('');
   const [processing, setProcessing] = useState(false);
   const [actionError, setActionError] = useState(null);
-
-  // Confirmation dialog state
-  const [confirmAction, setConfirmAction] = useState(null); // {proposalId, action, label}
+  const [confirmAction, setConfirmAction] = useState(null);
 
   if (!isAuthenticated) {
     return <p>Please sign in to access the review queue.</p>;
@@ -35,7 +33,6 @@ function ReviewQueue() {
   const reviewableProposals = proposals.filter((p) => canApprove(p));
 
   async function handleAction(proposalId, action) {
-    // Destructive actions require confirmation
     if (action === 'reject' && !confirmAction) {
       setConfirmAction({proposalId, action, label: 'Reject'});
       return;
@@ -58,18 +55,16 @@ function ReviewQueue() {
       <h2>Pending Reviews ({reviewableProposals.length})</h2>
 
       {actionError && (
-        <div className="alert alert--danger" style={{marginBottom: '1rem'}}>
+        <div className="alert alert--danger sc-alert-mb">
           {actionError}
-          <button className="button button--sm button--link" onClick={() => setActionError(null)} style={{marginLeft: 8}}>
-            Dismiss
-          </button>
+          <button className="button button--sm button--link sc-dismiss-btn" onClick={() => setActionError(null)}>Dismiss</button>
         </div>
       )}
 
       {reviewableProposals.length === 0 ? (
         <div className="alert alert--info">No proposals pending your review.</div>
       ) : (
-        <table style={{width: '100%'}}>
+        <table className="sc-table">
           <thead>
             <tr>
               <th>Title</th>
@@ -90,10 +85,7 @@ function ReviewQueue() {
                     <td><code>{p.doc_path}</code></td>
                     <td>{p.author?.display_name || p.author?.email || 'Unknown'}</td>
                     <td>
-                      <span style={{
-                        color: progress.met ? '#059669' : '#D97706',
-                        fontWeight: 600,
-                      }}>
+                      <span className={progress.met ? 'sc-approval-met' : 'sc-approval-pending'}>
                         {progress.current}/{progress.required}
                       </span>
                     </td>
@@ -110,13 +102,11 @@ function ReviewQueue() {
                   {activeId === p.id && (
                     <tr>
                       <td colSpan={6}>
-                        <div style={{padding: '1rem', background: 'var(--ifm-color-emphasis-100)', borderRadius: 8}}>
+                        <div className="sc-content-panel">
                           {p.description && <p><strong>Description:</strong> {p.description}</p>}
                           <details>
                             <summary>View Proposed Content</summary>
-                            <pre style={{maxHeight: 400, overflow: 'auto', padding: '1rem', fontSize: '0.85rem'}}>
-                              {p.content_diff}
-                            </pre>
+                            <pre className="sc-code-preview">{p.content_diff}</pre>
                           </details>
 
                           {p.approval_actions?.length > 0 && (
@@ -136,39 +126,24 @@ function ReviewQueue() {
 
                           <div style={{marginTop: '0.75rem'}}>
                             <textarea
+                              className="sc-form-textarea"
                               placeholder="Add a comment (optional for approve, required for reject/request changes)"
                               value={comment}
                               onChange={(e) => setComment(e.target.value)}
                               rows={3}
-                              style={{width: '100%', padding: '0.5rem', borderRadius: 4, border: '1px solid var(--ifm-color-emphasis-300)', marginBottom: '0.5rem'}}
+                              style={{marginBottom: '0.5rem'}}
                             />
-                            <div style={{display: 'flex', gap: '0.5rem', flexWrap: 'wrap'}}>
-                              <button
-                                className="button button--success button--sm"
-                                onClick={() => handleAction(p.id, 'approve')}
-                                disabled={processing}
-                              >
+                            <div className="sc-button-row">
+                              <button className="button button--success button--sm" onClick={() => handleAction(p.id, 'approve')} disabled={processing}>
                                 Approve
                               </button>
-                              <button
-                                className="button button--secondary button--sm"
-                                onClick={() => handleAction(p.id, 'comment')}
-                                disabled={processing || !comment}
-                              >
+                              <button className="button button--secondary button--sm" onClick={() => handleAction(p.id, 'comment')} disabled={processing || !comment}>
                                 Comment
                               </button>
-                              <button
-                                className="button button--warning button--sm"
-                                onClick={() => handleAction(p.id, 'request_changes')}
-                                disabled={processing || !comment}
-                              >
+                              <button className="button button--warning button--sm" onClick={() => handleAction(p.id, 'request_changes')} disabled={processing || !comment}>
                                 Request Changes
                               </button>
-                              <button
-                                className="button button--danger button--sm"
-                                onClick={() => handleAction(p.id, 'reject')}
-                                disabled={processing || !comment}
-                              >
+                              <button className="button button--danger button--sm" onClick={() => handleAction(p.id, 'reject')} disabled={processing || !comment}>
                                 Reject
                               </button>
                             </div>
@@ -219,15 +194,15 @@ function ApprovedQueue() {
   }
 
   return (
-    <div style={{marginTop: '2rem'}}>
+    <div className="sc-section-mt">
       <h2>Ready to Publish ({proposals.length})</h2>
       {publishError && (
-        <div className="alert alert--danger" style={{marginBottom: '0.5rem'}}>
+        <div className="alert alert--danger sc-alert-mb">
           {publishError}
-          <button className="button button--sm button--link" onClick={() => setPublishError(null)} style={{marginLeft: 8}}>Dismiss</button>
+          <button className="button button--sm button--link sc-dismiss-btn" onClick={() => setPublishError(null)}>Dismiss</button>
         </div>
       )}
-      <table style={{width: '100%'}}>
+      <table className="sc-table">
         <thead>
           <tr>
             <th>Title</th>
@@ -245,11 +220,7 @@ function ApprovedQueue() {
               <td>{p.author?.display_name || p.author?.email || 'Unknown'}</td>
               <td>{new Date(p.updated_at).toLocaleDateString()}</td>
               <td>
-                <button
-                  className="button button--primary button--sm"
-                  onClick={() => handlePublish(p.id)}
-                  disabled={processing}
-                >
+                <button className="button button--primary button--sm" onClick={() => handlePublish(p.id)} disabled={processing}>
                   Publish
                 </button>
               </td>
@@ -264,7 +235,7 @@ function ApprovedQueue() {
 export default function ReviewPage() {
   return (
     <Layout title="Review Queue" description="Review and approve edit proposals">
-      <div className="container" style={{padding: '2rem 0'}}>
+      <div className="container sc-container-pad">
         <h1>Review Queue</h1>
         <ReviewQueue />
         <ApprovedQueue />

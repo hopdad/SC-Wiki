@@ -68,13 +68,13 @@ function MyProposals() {
   return (
     <div>
       {actionError && (
-        <div className="alert alert--danger" style={{marginBottom: '1rem'}}>
+        <div className="alert alert--danger sc-alert-mb">
           {actionError}
-          <button className="button button--sm button--link" onClick={() => setActionError(null)} style={{marginLeft: 8}}>Dismiss</button>
+          <button className="button button--sm button--link sc-dismiss-btn" onClick={() => setActionError(null)}>Dismiss</button>
         </div>
       )}
 
-      <table style={{width: '100%'}}>
+      <table className="sc-table">
         <thead>
           <tr>
             <th>Title</th>
@@ -96,10 +96,7 @@ function MyProposals() {
                   <td><strong>{p.title}</strong></td>
                   <td><code>{p.doc_path}</code></td>
                   <td>
-                    <span style={{
-                      padding: '2px 8px', borderRadius: 4,
-                      backgroundColor: badge.color, color: 'white', fontSize: '0.8rem',
-                    }}>
+                    <span className="sc-status-badge" style={{backgroundColor: badge.color}}>
                       {badge.label}
                     </span>
                   </td>
@@ -107,33 +104,25 @@ function MyProposals() {
                   <td>
                     {p.approval_actions?.length > 0
                       ? p.approval_actions.map((a) => (
-                          <div key={a.id} style={{fontSize: '0.85rem'}}>
+                          <div key={a.id} className="sc-text-sm">
                             <strong>{a.reviewer?.display_name || 'Unknown'}:</strong>{' '}
                             <em>{a.action}</em>
                             {a.comment && ` — "${a.comment}"`}
                           </div>
                         ))
-                      : <span style={{color: 'var(--ifm-color-emphasis-500)'}}>None yet</span>
+                      : <span className="sc-text-muted">None yet</span>
                     }
                   </td>
                   <td>
-                    <div style={{display: 'flex', gap: '0.25rem', flexWrap: 'wrap'}}>
+                    <div className="sc-button-row sc-button-row--tight">
                       {p.status === 'draft' && (
                         <>
-                          <button className="button button--sm button--primary" onClick={() => submitForReview(p.id)}>
-                            Submit
-                          </button>
-                          <button className="button button--sm button--outline" onClick={() => startEdit(p)}>
-                            Edit
-                          </button>
+                          <button className="button button--sm button--primary" onClick={() => submitForReview(p.id)}>Submit</button>
+                          <button className="button button--sm button--outline" onClick={() => startEdit(p)}>Edit</button>
                         </>
                       )}
                       {(p.status === 'draft' || p.status === 'pending_review') && (
-                        <button
-                          className="button button--sm button--outline"
-                          style={{color: '#DC2626', borderColor: '#DC2626'}}
-                          onClick={() => setCancelConfirm(p.id)}
-                        >
+                        <button className="button button--sm button--outline sc-btn-cancel" onClick={() => setCancelConfirm(p.id)}>
                           Cancel
                         </button>
                       )}
@@ -143,29 +132,24 @@ function MyProposals() {
                 {isEditing && (
                   <tr>
                     <td colSpan={6}>
-                      <div style={{padding: '1rem', background: 'var(--ifm-color-emphasis-100)', borderRadius: 8}}>
-                        <div style={{marginBottom: '0.5rem'}}>
-                          <label style={{fontWeight: 600}}>Title</label>
-                          <input type="text" value={editTitle} onChange={(e) => setEditTitle(e.target.value)}
-                            style={{width: '100%', padding: '0.5rem', borderRadius: 4, border: '1px solid var(--ifm-color-emphasis-300)'}} />
+                      <div className="sc-content-panel">
+                        <div className="sc-form-group">
+                          <label className="sc-form-label">Title</label>
+                          <input type="text" className="sc-form-input" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
                         </div>
-                        <div style={{marginBottom: '0.5rem'}}>
-                          <label style={{fontWeight: 600}}>Description</label>
-                          <input type="text" value={editDesc} onChange={(e) => setEditDesc(e.target.value)}
-                            style={{width: '100%', padding: '0.5rem', borderRadius: 4, border: '1px solid var(--ifm-color-emphasis-300)'}} />
+                        <div className="sc-form-group">
+                          <label className="sc-form-label">Description</label>
+                          <input type="text" className="sc-form-input" value={editDesc} onChange={(e) => setEditDesc(e.target.value)} />
                         </div>
-                        <div style={{marginBottom: '0.5rem'}}>
-                          <label style={{fontWeight: 600}}>Content</label>
-                          <textarea value={editContent} onChange={(e) => setEditContent(e.target.value)} rows={8}
-                            style={{width: '100%', padding: '0.5rem', borderRadius: 4, border: '1px solid var(--ifm-color-emphasis-300)', fontFamily: 'monospace'}} />
+                        <div className="sc-form-group">
+                          <label className="sc-form-label">Content</label>
+                          <textarea className="sc-form-textarea" value={editContent} onChange={(e) => setEditContent(e.target.value)} rows={8} />
                         </div>
-                        <div style={{display: 'flex', gap: '0.5rem'}}>
+                        <div className="sc-button-row">
                           <button className="button button--primary button--sm" onClick={() => saveEdit(p.id)} disabled={saving}>
                             {saving ? 'Saving...' : 'Save'}
                           </button>
-                          <button className="button button--outline button--sm" onClick={() => setEditingId(null)}>
-                            Cancel
-                          </button>
+                          <button className="button button--outline button--sm" onClick={() => setEditingId(null)}>Cancel</button>
                         </div>
                       </div>
                     </td>
@@ -195,7 +179,7 @@ function MyProposals() {
 export default function ProposalsPage() {
   return (
     <Layout title="My Proposals" description="View and manage your edit proposals">
-      <div className="container" style={{padding: '2rem 0'}}>
+      <div className="container sc-container-pad">
         <h1>My Edit Proposals</h1>
         <MyProposals />
       </div>

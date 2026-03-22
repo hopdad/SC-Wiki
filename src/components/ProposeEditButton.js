@@ -25,12 +25,9 @@ export default function ProposeEditButton({docPath, currentContent}) {
 
   if (success) {
     return (
-      <div className="alert alert--success" style={{marginTop: '1rem'}}>
+      <div className="alert alert--success sc-section-mt">
         Edit proposal submitted for review!
-        <button
-          className="button button--sm button--link"
-          onClick={() => { setSuccess(false); setIsOpen(false); }}
-        >
+        <button className="button button--sm button--link sc-dismiss-btn" onClick={() => { setSuccess(false); setIsOpen(false); }}>
           Dismiss
         </button>
       </div>
@@ -39,11 +36,7 @@ export default function ProposeEditButton({docPath, currentContent}) {
 
   if (!isOpen) {
     return (
-      <button
-        className="button button--primary button--sm"
-        onClick={() => setIsOpen(true)}
-        style={{marginTop: '1rem'}}
-      >
+      <button className="button button--primary button--sm sc-section-mt" onClick={() => setIsOpen(true)}>
         Propose Edit
       </button>
     );
@@ -79,51 +72,35 @@ export default function ProposeEditButton({docPath, currentContent}) {
   }
 
   return (
-    <div style={{marginTop: '1rem', border: '1px solid var(--ifm-color-emphasis-300)', borderRadius: 8, padding: '1rem'}}>
+    <div className="sc-form-panel">
       <h4 style={{marginTop: 0}}>Propose an Edit</h4>
 
       {errorMsg && (
-        <div className="alert alert--danger" style={{marginBottom: '0.75rem'}}>
+        <div className="alert alert--danger sc-form-group">
           {errorMsg}
-          <button className="button button--sm button--link" onClick={() => setErrorMsg(null)} style={{marginLeft: 8}}>
+          <button className="button button--sm button--link sc-dismiss-btn" onClick={() => setErrorMsg(null)}>
             Dismiss
           </button>
         </div>
       )}
 
       <form onSubmit={handleSubmit}>
-        <div style={{marginBottom: '0.75rem'}}>
-          <label style={{display: 'block', fontWeight: 600, marginBottom: 4}}>Title</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Brief summary of your change"
-            required
-            style={{width: '100%', padding: '0.5rem', borderRadius: 4, border: '1px solid var(--ifm-color-emphasis-300)'}}
-          />
+        <div className="sc-form-group">
+          <label className="sc-form-label">Title</label>
+          <input type="text" className="sc-form-input" value={title} onChange={(e) => setTitle(e.target.value)}
+            placeholder="Brief summary of your change" required />
         </div>
-        <div style={{marginBottom: '0.75rem'}}>
-          <label style={{display: 'block', fontWeight: 600, marginBottom: 4}}>Description</label>
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Why is this change needed?"
-            style={{width: '100%', padding: '0.5rem', borderRadius: 4, border: '1px solid var(--ifm-color-emphasis-300)'}}
-          />
+        <div className="sc-form-group">
+          <label className="sc-form-label">Description</label>
+          <input type="text" className="sc-form-input" value={description} onChange={(e) => setDescription(e.target.value)}
+            placeholder="Why is this change needed?" />
         </div>
-        <div style={{marginBottom: '0.75rem'}}>
-          <label style={{display: 'block', fontWeight: 600, marginBottom: 4}}>Proposed Content (Markdown)</label>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            rows={12}
-            required
-            style={{width: '100%', padding: '0.5rem', borderRadius: 4, border: '1px solid var(--ifm-color-emphasis-300)', fontFamily: 'monospace', fontSize: '0.9rem'}}
-          />
+        <div className="sc-form-group">
+          <label className="sc-form-label">Proposed Content (Markdown)</label>
+          <textarea className="sc-form-textarea" value={content} onChange={(e) => setContent(e.target.value)}
+            rows={12} required />
         </div>
-        <div style={{display: 'flex', gap: '0.5rem'}}>
+        <div className="sc-button-row">
           <button type="submit" className="button button--primary button--sm" disabled={submitting}>
             {submitting ? 'Submitting...' : 'Submit for Review'}
           </button>

@@ -161,3 +161,230 @@
   background-color: rgba(255, 255, 255, 0.2);
   font-weight: bold;
 }
+
+/* ============================================
+   SHARED COMPONENT STYLES
+   Prefixed sc- to avoid collisions with Infima
+   ============================================ */
+
+/* Forms */
+.sc-form-input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+}
+
+.sc-form-input--search {
+  width: 300px;
+}
+
+.sc-form-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.9rem;
+}
+
+.sc-form-group {
+  margin-bottom: 0.75rem;
+}
+
+.sc-form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.sc-select {
+  padding: 0.25rem;
+  border-radius: 4px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  border: 1px solid var(--ifm-color-emphasis-300);
+}
+
+/* Layout */
+.sc-button-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sc-button-row--tight {
+  gap: 0.25rem;
+}
+
+.sc-button-row--end {
+  justify-content: flex-end;
+}
+
+.sc-section-mt {
+  margin-top: 2rem;
+}
+
+.sc-container-pad {
+  padding: 2rem 0;
+}
+
+/* Panels and cards */
+.sc-content-panel {
+  padding: 1rem;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 8px;
+}
+
+.sc-form-panel {
+  margin-top: 1rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.sc-code-preview {
+  max-height: 400px;
+  overflow: auto;
+  padding: 1rem;
+  font-size: 0.85rem;
+}
+
+/* Tables */
+.sc-table {
+  width: 100%;
+}
+
+.sc-table--sm {
+  font-size: 0.85rem;
+}
+
+/* Badges */
+.sc-status-badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: white;
+  font-size: 0.8rem;
+  display: inline-block;
+}
+
+.sc-role-badge {
+  margin-left: 6px;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: white;
+  vertical-align: middle;
+}
+
+.sc-notification-badge {
+  margin-left: 6px;
+  font-size: 0.65rem;
+  padding: 1px 5px;
+  border-radius: 10px;
+  background-color: #E31837;
+  color: white;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+/* Buttons */
+.sc-unstyled-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+.sc-unstyled-btn--full {
+  width: 100%;
+  text-align: left;
+}
+
+/* Text */
+.sc-text-sm {
+  font-size: 0.85rem;
+}
+
+.sc-text-muted {
+  color: var(--ifm-color-emphasis-500);
+}
+
+/* Alert inline */
+.sc-alert-mb {
+  margin-bottom: 1rem;
+}
+
+.sc-dismiss-btn {
+  margin-left: 8px;
+}
+
+/* Modal */
+.sc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.sc-modal-content {
+  background: var(--ifm-background-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.sc-modal-content h3 {
+  margin-top: 0;
+}
+
+.sc-modal-content p {
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* Approval progress */
+.sc-approval-met {
+  color: #059669;
+  font-weight: 600;
+}
+
+.sc-approval-pending {
+  color: #D97706;
+  font-weight: 600;
+}
+
+/* Active/Inactive status */
+.sc-status-active {
+  color: #059669;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.sc-status-inactive {
+  color: #DC2626;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* Cancel button variant */
+.sc-btn-cancel {
+  color: #DC2626;
+  border-color: #DC2626;
+}
+
+/* Pagination */
+.sc-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
