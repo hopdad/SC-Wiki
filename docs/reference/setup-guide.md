@@ -116,3 +116,64 @@ Default rules (configurable in Admin Panel):
 | `supply-chain/*` | Reviewer | Yes | 1 |
 | `systems/*` | Reviewer | Yes | 1 |
 | `reference/*` | Reviewer | Yes | 1 |
+
+Rules are enforced automatically — a proposal won't transition to "approved" until it has the required number of approvals from qualified reviewers.
+
+## 7. Schema Migrations
+
+After initial setup, run migrations in order:
+
+```bash
+# In Supabase SQL Editor, run:
+supabase/migrations/001_improvements.sql
+```
+
+This adds:
+- `cancelled` proposal status
+- Duplicate approval prevention
+- Email uniqueness constraint
+- Notifications table with real-time subscriptions
+- Auto-notification triggers on proposal status changes
+- Additional RLS policies for cancel/publish actions
+
+## 8. Email Notifications
+
+### Deploy Edge Function
+
+```bash
+supabase functions deploy notify-reviewers
+```
+
+### Set Environment Variables
+
+In Supabase dashboard, set these secrets for the edge function:
+
+```bash
+supabase secrets set SMTP_HOST=smtp.your-provider.com
+supabase secrets set SMTP_PORT=587
+supabase secrets set SMTP_USER=your-user
+supabase secrets set SMTP_PASS=your-password
+supabase secrets set SMTP_FROM=sc-wiki@meijer.com
+supabase secrets set SITE_URL=https://sc-wiki.meijer.com
+```
+
+### Create Database Webhook
+
+In Supabase Dashboard > Database > Webhooks:
+1. Create webhook on `edit_proposals` table for `UPDATE` events
+2. Point to: `https://your-project.supabase.co/functions/v1/notify-reviewers`
+3. Include the `Authorization` header with your service role key
+
+### What Gets Sent
+
+| Event | Recipients |
+|---|---|
+| Proposal submitted | All reviewers, admins, author's manager |
+| Proposal approved | Author |
+| Proposal rejected | Author |
+
+## 9. In-App Notifications
+
+In-app notifications are automatic once the migration is applied. The navbar shows a red badge with the count of pending reviews for reviewers/admins.
+
+Notifications are powered by Supabase real-time subscriptions — they update live without page refresh.

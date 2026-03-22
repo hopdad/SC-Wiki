@@ -15,6 +15,7 @@ export default function ProposeEditButton({docPath, currentContent}) {
   const [content, setContent] = useState(currentContent || '');
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   if (!isAuthenticated) {
     return (
@@ -32,10 +33,7 @@ export default function ProposeEditButton({docPath, currentContent}) {
         Edit proposal submitted for review!
         <button
           className="button button--sm button--link"
-          onClick={() => {
-            setSuccess(false);
-            setIsOpen(false);
-          }}
+          onClick={() => { setSuccess(false); setIsOpen(false); }}
         >
           Dismiss
         </button>
@@ -57,6 +55,14 @@ export default function ProposeEditButton({docPath, currentContent}) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setErrorMsg(null);
+
+    // Validate content is actually different
+    if (content.trim() === (currentContent || '').trim()) {
+      setErrorMsg('Your proposed content is identical to the current content.');
+      return;
+    }
+
     setSubmitting(true);
     try {
       const proposal = await createProposal({
@@ -72,7 +78,7 @@ export default function ProposeEditButton({docPath, currentContent}) {
       setDescription('');
       setContent(currentContent || '');
     } catch (err) {
-      alert('Error submitting proposal: ' + err.message);
+      setErrorMsg(err.message);
     }
     setSubmitting(false);
   }
@@ -80,6 +86,16 @@ export default function ProposeEditButton({docPath, currentContent}) {
   return (
     <div style={{marginTop: '1rem', border: '1px solid var(--ifm-color-emphasis-300)', borderRadius: 8, padding: '1rem'}}>
       <h4 style={{marginTop: 0}}>Propose an Edit</h4>
+
+      {errorMsg && (
+        <div className="alert alert--danger" style={{marginBottom: '0.75rem'}}>
+          {errorMsg}
+          <button className="button button--sm button--link" onClick={() => setErrorMsg(null)} style={{marginLeft: 8}}>
+            Dismiss
+          </button>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
         <div style={{marginBottom: '0.75rem'}}>
           <label style={{display: 'block', fontWeight: 600, marginBottom: 4}}>Title</label>

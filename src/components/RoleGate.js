@@ -1,7 +1,6 @@
 import React from 'react';
 import {useAuth} from '../contexts/AuthContext';
-
-const ROLE_HIERARCHY = ['viewer', 'editor', 'reviewer', 'admin'];
+import {hasMinRole} from '../lib/roles';
 
 /**
  * Only renders children if user has the required minimum role.
@@ -12,10 +11,7 @@ export default function RoleGate({minRole, children, fallback = null}) {
 
   if (loading) return null;
 
-  const userLevel = ROLE_HIERARCHY.indexOf(profile?.role || 'viewer');
-  const requiredLevel = ROLE_HIERARCHY.indexOf(minRole);
-
-  if (userLevel >= requiredLevel) {
+  if (hasMinRole(profile?.role, minRole)) {
     return <>{children}</>;
   }
 

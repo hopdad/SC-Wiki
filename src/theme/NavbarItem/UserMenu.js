@@ -1,22 +1,11 @@
 import React from 'react';
 import {useAuth} from '../../contexts/AuthContext';
-
-const ROLE_LABELS = {
-  viewer: 'Viewer',
-  editor: 'Editor',
-  reviewer: 'Reviewer',
-  admin: 'Admin',
-};
-
-const ROLE_COLORS = {
-  viewer: '#6B7280',
-  editor: '#2563EB',
-  reviewer: '#7C3AED',
-  admin: '#DC2626',
-};
+import {useNotifications} from '../../hooks/useNotifications';
+import {ROLE_LABELS, ROLE_COLORS} from '../../lib/roles';
 
 export default function UserMenu() {
-  const {isAuthenticated, profile, signIn, signOut, loading} = useAuth();
+  const {isAuthenticated, isReviewer, profile, signIn, signOut, loading} = useAuth();
+  const {pendingCount} = useNotifications();
 
   if (loading) {
     return <span className="navbar__item" style={{opacity: 0.5, fontSize: '0.85rem'}}>...</span>;
@@ -40,7 +29,9 @@ export default function UserMenu() {
     <div className="navbar__item dropdown dropdown--hoverable dropdown--right">
       <button
         className="navbar__link"
-        style={{cursor: 'pointer', background: 'none', border: 'none', color: 'inherit'}}
+        style={{cursor: 'pointer', background: 'none', border: 'none', color: 'inherit', position: 'relative'}}
+        aria-label="User menu"
+        aria-haspopup="true"
       >
         {profile?.display_name || profile?.email}
         <span
@@ -56,34 +47,60 @@ export default function UserMenu() {
         >
           {ROLE_LABELS[role]}
         </span>
+        {pendingCount > 0 && isReviewer && (
+          <span
+            style={{
+              marginLeft: 6,
+              fontSize: '0.65rem',
+              padding: '1px 5px',
+              borderRadius: 10,
+              backgroundColor: '#E31837',
+              color: 'white',
+              fontWeight: 700,
+              verticalAlign: 'middle',
+            }}
+            aria-label={`${pendingCount} pending reviews`}
+          >
+            {pendingCount > 99 ? '99+' : pendingCount}
+          </span>
+        )}
       </button>
-      <ul className="dropdown__menu">
-        <li>
-          <a className="dropdown__link" href="/proposals">
+      <ul className="dropdown__menu" role="menu">
+        <li role="none">
+          <a className="dropdown__link" href="/proposals" role="menuitem">
             My Proposals
           </a>
         </li>
         {(role === 'reviewer' || role === 'admin') && (
-          <li>
-            <a className="dropdown__link" href="/review">
+          <li role="none">
+            <a className="dropdown__link" href="/review" role="menuitem">
               Review Queue
+              {pendingCount > 0 && (
+                <span style={{
+                  marginLeft: 6, fontSize: '0.7rem', padding: '1px 5px',
+                  borderRadius: 10, backgroundColor: '#E31837', color: 'white', fontWeight: 700,
+                }}>
+                  {pendingCount}
+                </span>
+              )}
             </a>
           </li>
         )}
         {role === 'admin' && (
-          <li>
-            <a className="dropdown__link" href="/admin">
+          <li role="none">
+            <a className="dropdown__link" href="/admin" role="menuitem">
               Admin Panel
             </a>
           </li>
         )}
-        <li>
+        <li role="none">
           <hr className="dropdown__separator" />
         </li>
-        <li>
+        <li role="none">
           <button
             className="dropdown__link"
             onClick={signOut}
+            role="menuitem"
             style={{cursor: 'pointer', background: 'none', border: 'none', width: '100%', textAlign: 'left'}}
           >
             Sign Out
