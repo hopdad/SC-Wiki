@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import Layout from '@theme/Layout';
 import {useAuth} from '../contexts/AuthContext';
 import {useProposals} from '../hooks/useProposals';
@@ -6,6 +6,7 @@ import {STATUS_LABELS} from '../lib/roles';
 import ConfirmDialog from '../components/ConfirmDialog';
 import ErrorAlert from '../components/ErrorAlert';
 import Pagination from '../components/Pagination';
+import FileUpload from '../components/FileUpload';
 
 const STATUS_OPTIONS = [
   {value: '', label: 'All Statuses'},
@@ -27,6 +28,10 @@ function MyProposals() {
   const [saving, setSaving] = useState(false);
   const [actionError, setActionError] = useState(null);
   const [cancelConfirm, setCancelConfirm] = useState(null);
+
+  const handleFileInsert = useCallback((markdown) => {
+    setEditContent((prev) => prev + '\n' + markdown + '\n');
+  }, []);
 
   if (!isAuthenticated) {
     return <p>Please sign in to view your proposals.</p>;
@@ -162,6 +167,7 @@ function MyProposals() {
                             <div className="sc-form-group">
                               <label className="sc-form-label" htmlFor="edit-content">Content</label>
                               <textarea id="edit-content" className="sc-form-textarea" value={editContent} onChange={(e) => setEditContent(e.target.value)} rows={8} />
+                              <FileUpload onInsert={handleFileInsert} />
                             </div>
                             <div className="sc-button-row">
                               <button className="button button--primary button--sm" onClick={() => saveEdit(p.id)} disabled={saving}>

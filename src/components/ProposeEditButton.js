@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {useAuth} from '../contexts/AuthContext';
 import {useProposalMutations} from '../hooks/useProposals';
 import ErrorAlert from './ErrorAlert';
+import FileUpload from './FileUpload';
 
 export default function ProposeEditButton({docPath, currentContent}) {
   const {isEditor, isAuthenticated, signIn} = useAuth();
@@ -13,6 +14,10 @@ export default function ProposeEditButton({docPath, currentContent}) {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
+
+  const handleFileInsert = useCallback((markdown) => {
+    setContent((prev) => prev + '\n' + markdown + '\n');
+  }, []);
 
   if (!isAuthenticated) {
     return (
@@ -99,6 +104,7 @@ export default function ProposeEditButton({docPath, currentContent}) {
           <label className="sc-form-label" htmlFor="propose-content">Proposed Content (Markdown)</label>
           <textarea id="propose-content" className="sc-form-textarea" value={content} onChange={(e) => setContent(e.target.value)}
             rows={12} required />
+          <FileUpload onInsert={handleFileInsert} />
         </div>
         <div className="sc-button-row">
           <button type="submit" className="button button--primary button--sm" disabled={submitting}>
