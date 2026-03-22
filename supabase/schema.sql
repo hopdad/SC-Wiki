@@ -203,36 +203,8 @@ create policy "Authenticated users can insert audit entries"
 -- ==============================================
 -- Helper Functions
 -- ==============================================
-
--- Check if a user can approve a specific proposal
--- (they are a reviewer/admin OR the author's manager)
-create or replace function public.can_approve_proposal(
-  p_user_id uuid,
-  p_proposal_id uuid
-) returns boolean as $$
-declare
-  v_user_role text;
-  v_author_manager_id uuid;
-begin
-  -- Get the user's role
-  select role into v_user_role
-  from public.user_profiles
-  where id = p_user_id;
-
-  -- Admins and reviewers can always approve
-  if v_user_role in ('admin', 'reviewer') then
-    return true;
-  end if;
-
-  -- Check if user is the author's manager
-  select up.manager_id into v_author_manager_id
-  from public.edit_proposals ep
-  join public.user_profiles up on up.id = ep.author_id
-  where ep.id = p_proposal_id;
-
-  return v_author_manager_id = p_user_id;
-end;
-$$ language plpgsql security definer;
+-- Note: Approval logic is handled by process_review_action() in
+-- migrations/002_atomic_approval.sql and client-side in src/lib/approvalRules.js
 
 -- Auto-create user profile on first sign-in
 create or replace function public.handle_new_user()

@@ -4,6 +4,7 @@ import {useAuth} from '../contexts/AuthContext';
 import {getSupabase} from '../lib/supabase';
 import {ROLES, ROLE_LABELS} from '../lib/roles';
 import ConfirmDialog from '../components/ConfirmDialog';
+import ErrorAlert from '../components/ErrorAlert';
 import Pagination from '../components/Pagination';
 
 function UserManagement() {
@@ -99,12 +100,7 @@ function UserManagement() {
 
   return (
     <div>
-      {actionError && (
-        <div className="alert alert--danger sc-alert-mb">
-          {actionError}
-          <button className="button button--sm button--link sc-dismiss-btn" onClick={() => setActionError(null)}>Dismiss</button>
-        </div>
-      )}
+      <ErrorAlert error={actionError} onDismiss={() => setActionError(null)} />
       <div className="sc-alert-mb">
         <input
           type="text"

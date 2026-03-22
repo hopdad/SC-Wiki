@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useAuth} from '../contexts/AuthContext';
 import {useProposalMutations} from '../hooks/useProposals';
+import ErrorAlert from './ErrorAlert';
 
 export default function ProposeEditButton({docPath, currentContent}) {
   const {isEditor, isAuthenticated, signIn} = useAuth();
@@ -75,14 +76,7 @@ export default function ProposeEditButton({docPath, currentContent}) {
     <div className="sc-form-panel">
       <h4 style={{marginTop: 0}}>Propose an Edit</h4>
 
-      {errorMsg && (
-        <div className="alert alert--danger sc-form-group">
-          {errorMsg}
-          <button className="button button--sm button--link sc-dismiss-btn" onClick={() => setErrorMsg(null)}>
-            Dismiss
-          </button>
-        </div>
-      )}
+      <ErrorAlert error={errorMsg} onDismiss={() => setErrorMsg(null)} />
 
       <form onSubmit={handleSubmit}>
         <div className="sc-form-group">

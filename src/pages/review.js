@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import {useAuth} from '../contexts/AuthContext';
 import {useProposals} from '../hooks/useProposals';
 import ConfirmDialog from '../components/ConfirmDialog';
+import ErrorAlert from '../components/ErrorAlert';
 import Pagination from '../components/Pagination';
 
 function ReviewQueue() {
@@ -54,12 +55,7 @@ function ReviewQueue() {
     <div>
       <h2>Pending Reviews ({reviewableProposals.length})</h2>
 
-      {actionError && (
-        <div className="alert alert--danger sc-alert-mb">
-          {actionError}
-          <button className="button button--sm button--link sc-dismiss-btn" onClick={() => setActionError(null)}>Dismiss</button>
-        </div>
-      )}
+      <ErrorAlert error={actionError} onDismiss={() => setActionError(null)} />
 
       {reviewableProposals.length === 0 ? (
         <div className="alert alert--info">No proposals pending your review.</div>
@@ -196,12 +192,7 @@ function ApprovedQueue() {
   return (
     <div className="sc-section-mt">
       <h2>Ready to Publish ({proposals.length})</h2>
-      {publishError && (
-        <div className="alert alert--danger sc-alert-mb">
-          {publishError}
-          <button className="button button--sm button--link sc-dismiss-btn" onClick={() => setPublishError(null)}>Dismiss</button>
-        </div>
-      )}
+      <ErrorAlert error={publishError} onDismiss={() => setPublishError(null)} />
       <table className="sc-table">
         <thead>
           <tr>

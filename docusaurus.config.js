@@ -65,7 +65,6 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/meijer-social-card.png',
       colorMode: {
         defaultMode: 'light',
         disableSwitch: false,

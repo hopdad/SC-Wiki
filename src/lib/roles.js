@@ -1,7 +1,5 @@
+// Index determines permission level (viewer < editor < reviewer < admin)
 export const ROLES = ['viewer', 'editor', 'reviewer', 'admin'];
-
-// ROLES doubles as the hierarchy — index determines permission level
-export const ROLE_HIERARCHY = ROLES;
 
 export const ROLE_LABELS = {
   viewer: 'Viewer',

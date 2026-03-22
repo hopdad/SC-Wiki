@@ -4,6 +4,7 @@ import {useAuth} from '../contexts/AuthContext';
 import {useProposals} from '../hooks/useProposals';
 import {STATUS_LABELS} from '../lib/roles';
 import ConfirmDialog from '../components/ConfirmDialog';
+import ErrorAlert from '../components/ErrorAlert';
 import Pagination from '../components/Pagination';
 
 function MyProposals() {
@@ -67,12 +68,7 @@ function MyProposals() {
 
   return (
     <div>
-      {actionError && (
-        <div className="alert alert--danger sc-alert-mb">
-          {actionError}
-          <button className="button button--sm button--link sc-dismiss-btn" onClick={() => setActionError(null)}>Dismiss</button>
-        </div>
-      )}
+      <ErrorAlert error={actionError} onDismiss={() => setActionError(null)} />
 
       <table className="sc-table">
         <thead>
