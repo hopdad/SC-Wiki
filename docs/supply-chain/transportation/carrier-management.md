@@ -12,10 +12,19 @@ Meijer uses a mix of its private fleet and third-party carriers to transport pro
 
 | Carrier Type | Description | Typical Usage |
 |---|---|---|
-| **Private Fleet** | Meijer-owned trucks and employed drivers | Primary DC-to-store deliveries; highest control |
-| **Dedicated Contract Carriers** | Third-party carriers committed to Meijer with dedicated equipment | Overflow and specific lanes |
+| **Private Fleet** | Meijer Logistics LLC — 251 tractors, 2,847 trailers | Primary DC-to-store deliveries in MI, OH, IN; highest control |
+| **Dedicated Contract Carriers** | Third-party carriers committed to Meijer with dedicated equipment | Haul freight to all six states |
 | **Common Carriers** | Shared-capacity carriers available on the spot market or contract | Seasonal peaks, long-haul, specialty freight |
+| **3PL Consolidation Partners** | Asset-based 3PLs that consolidate multi-vendor shipments | Inbound supplier freight optimization |
 | **Intermodal** | Rail + truck combination for long-distance moves | Inbound supplier freight from distant regions |
+
+### Key 3PL Partners
+
+| Partner | Role |
+|---|---|
+| **RJW Logistics Group** | Runs the Meijer Retail Consolidation Program; asset-based 3PL with own trucking fleet and warehouses; consolidates multi-vendor shipments into optimized truckloads |
+| **Buske Logistics** | Meijer 3PL ensuring shipment compliance with Meijer routing guide; strong Midwest coverage |
+| **Atlanta Bonded Warehouse (ABW)** | Weekly deliveries to Meijer with 65+ tractors and 200 refrigerated trailers |
 
 ## Carrier Selection and Contracting
 

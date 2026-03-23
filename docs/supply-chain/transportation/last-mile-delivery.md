@@ -33,17 +33,23 @@ Meijer offers several digital fulfillment options to customers:
 - Available at most Meijer locations
 
 ### Meijer Home Delivery
-- Customers order online for delivery to their home
+- Customers order through the Meijer app or meijer.com for delivery to their home
+- **Membership:** $99/year or $14/month; free unlimited delivery for orders over $35
 - Orders fulfilled from the nearest Meijer store
-- Delivery handled through partnerships (including Shipt, a Target-owned delivery platform)
+- Customers can shop from ~80,000 items online
 - Same-day and scheduled delivery windows available
+- Beer and wine delivery available in Ohio and Michigan
 
-### Shipt Partnership
-Meijer was one of the early retail partners of Shipt, the same-day delivery service:
-- Shipt shoppers pick orders in Meijer stores
-- Delivered to customers' homes within a chosen delivery window
-- Real-time order tracking and shopper communication via the Shipt app
-- Available in most markets where Meijer operates
+### Delivery Partners
+
+| Partner | Service | Coverage |
+|---|---|---|
+| **Shipt** (Target subsidiary) | Primary same-day delivery partner since 2016; shoppers pick and deliver from Meijer stores | All six states |
+| **Instacart** | Same-day delivery from nearly all Meijer stores | All six states |
+| **DoorDash** | Grocery and alcohol delivery | Select states (IL, KY, MI, OH) |
+
+### Micro-Fulfillment
+Meijer has piloted **Dematic micro-fulfillment centers (MFCs)** inside select supercenters to improve e-commerce pick speed and accuracy. The first MFC, near Grand Rapids, MI, fits into ~10,000 sq ft of existing store space and was constructed in approximately 12 weeks.
 
 ## Fulfillment Process (E-Commerce)
 

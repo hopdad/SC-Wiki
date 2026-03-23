@@ -19,10 +19,14 @@ Meijer operates several proprietary brands that are sourced from contract manufa
 | Brand | Category | Positioning |
 |---|---|---|
 | **Meijer** | Pantry staples, household, grocery | National brand equivalent at value pricing |
-| **True Goodness by Meijer** | Organic, natural, and free-from products | Natural/organic alternative |
-| **Purple Cow** | Dairy products (milk, ice cream, cheese) | Regional dairy brand |
-| **Frederick's by Meijer** | Premium coffee and specialty items | Premium tier |
+| **True Goodness by Meijer** | 325+ organic, natural, and free-from products; no artificial flavors, preservatives, or hydrogenated oils; many USDA certified organic | Natural/organic alternative |
+| **Purple Cow** | Frozen treats and ice cream | Named in honor of founder Fred Meijer |
+| **Frederik's by Meijer** | Premium products and specialty items | Premium tier (named after the founder) |
+| **Fresh from Meijer** | Fresh food line | Fresh/prepared foods |
+| **Penny Smart** | Value/budget brand | Economy tier |
 | **Paws Happy Life** | Pet food and supplies | Pet care |
+| **Falls Creek** | Apparel | Private label clothing |
+| **At Home with Meijer** | Home goods and décor | Home category |
 | **Boulder Clean** | Eco-friendly cleaning products | Sustainable household |
 
 ### Local and Regional Suppliers

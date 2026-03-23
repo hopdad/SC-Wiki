@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Supply Chain Overview
 
-Meijer's supply chain moves products from thousands of suppliers to over 500 supercenters and grocery stores across six Midwestern states. As a privately held, family-owned retailer founded in 1934, Meijer pioneered the supercenter concept and operates one of the largest regional supply chain networks in the United States.
+Meijer's supply chain moves products from thousands of suppliers to over 270 supercenters and smaller-format Meijer Grocery stores across six Midwestern states. As a privately held, family-owned retailer founded in 1934 by Hendrik Meijer in Greenville, Michigan, Meijer pioneered the supercenter concept and operates one of the largest regional supply chain networks in the United States, with estimated annual revenue exceeding $20 billion.
 
 ## Supply Chain Flow
 
@@ -26,14 +26,17 @@ graph LR
 
 | Metric | Details |
 |---|---|
-| **Retail Locations** | 500+ supercenters and grocery stores |
+| **Retail Locations** | 270+ supercenters and Meijer Grocery stores |
 | **States Served** | Michigan, Ohio, Indiana, Illinois, Kentucky, Wisconsin |
-| **Distribution Centers** | Multiple facilities across the Midwest |
-| **DC Types** | Grocery, General Merchandise, Frozen/Dairy, Fresh, Perishable |
-| **Product Categories** | Grocery, General Merchandise, Fresh Produce, Frozen, Dairy, Pharmacy, Apparel, Home, Garden |
-| **Headquarters** | Grand Rapids, Michigan |
-| **Employees** | ~70,000+ team members |
-| **Founded** | 1934 by Hendrik Meijer |
+| **Store Formats** | Supercenters (~200,000 sq ft) and Meijer Grocery (~75,000-90,000 sq ft) |
+| **Distribution Centers** | Multiple facilities in MI, OH, IN, WI |
+| **DC Types** | Grocery, General Merchandise, Frozen/Dairy, Fresh/Perishable, Central Kitchen |
+| **Product Categories** | 220,000+ products: Grocery, GM, Fresh, Frozen, Dairy, Pharmacy, Apparel, Home, Garden |
+| **Fleet** | ~750 trucks covering 70 million miles/year; 251 tractors, 2,847 trailers |
+| **Headquarters** | 2929 Walker Ave NW, Grand Rapids, Michigan |
+| **Employees** | ~70,000 team members |
+| **Est. Revenue** | $20+ billion annually (private company) |
+| **Founded** | 1934 by Hendrik Meijer in Greenville, MI |
 
 ## Key Areas
 

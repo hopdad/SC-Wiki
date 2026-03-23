@@ -6,7 +6,18 @@ sidebar_position: 3
 
 ## Overview
 
-Meijer operates a private fleet of trucks and drivers that handles a significant portion of distribution center-to-store deliveries. The private fleet provides greater control over service quality, delivery timing, and cost compared to third-party carriers, particularly for the high-frequency routes that serve Meijer's core Midwest footprint.
+Meijer operates a private fleet through **Meijer Logistics LLC** (USDOT #1459678) that handles a significant portion of distribution center-to-store deliveries. The fleet covers approximately **70 million miles per year** with a **99.8% on-time delivery rate** and has achieved no driver out-of-service incidents in consecutive years. Every store receives a fresh produce delivery every single day.
+
+## Fleet at a Glance
+
+| Metric | Value |
+|---|---|
+| **Tractors** | 251 |
+| **Trailers** | 2,847 |
+| **Annual Miles** | ~70 million |
+| **On-Time Delivery** | 99.8% |
+| **Fuel Savings vs. 2006** | 569,767 fewer gallons per year |
+| **Industry Ranking** | FleetOwner 500: Top Private Fleets |
 
 ## Fleet Composition
 
@@ -17,6 +28,16 @@ Meijer operates a private fleet of trucks and drivers that handles a significant
 | **Dry Van Trailers** | Standard enclosed trailer, no temperature control | Grocery, GM, household products |
 | **Refrigerated Trailers** | Temperature-controlled (single-temp) | Dairy, produce, frozen foods |
 | **Multi-Temp Trailers** | Multiple temperature zones in one trailer | Mixed loads (frozen + refrigerated) |
+| **Electric Semitrucks** | Freightliner eCascadia — all-electric, ~230 mile range | Local DC-to-store runs within 200-mile radius |
+
+### Electric Fleet Initiative
+Meijer was the **first retailer in North America** to run all-electric Freightliner eCascadia semitrucks in a cold-weather environment (December 2022). Key specs:
+- **Range:** ~230 miles per charge
+- **Battery:** ~440 kWh capacity
+- **Recharge:** 80% in ~90 minutes
+- **Emissions:** 40% reduction in well-to-wheel GHG vs. diesel
+- Electric trucks operate from the Lansing DC on daily store runs
+- Meijer has also reserved **Tesla Semis**
 
 ## Driver Management
 

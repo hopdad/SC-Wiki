@@ -26,10 +26,16 @@ graph LR
 
 ### Return Policy
 Meijer offers a customer-friendly return policy:
-- Most items can be returned within 90 days with receipt
-- Electronics and select categories have a 30-day return window
+- **90 days** for general merchandise with receipt
+- **30 days** for electronics (TVs, tablets, cameras)
+- **3 days** for live wreaths and Christmas trees
 - Perishable items (food, flowers) can be returned if quality is unsatisfactory
+- Gas-powered items may incur up to $25 restocking fee
+- **Without receipt:** Up to 3 returns in 12 months with valid government-issued ID; refund issued as store credit at lowest selling price in past 30 days
 - Receipt lookup via Meijer Rewards / mPerks account for receipt-less returns
+- Returns accepted in-store at Customer Service desk or by mail
+- Refunds take up to 14 business days; credited to original payment method
+- **Non-returnable:** Gift cards, alcohol, tobacco, opened software/electronics, prepaid cards, ammunition, blood glucose monitors
 
 ### Store Return Process
 1. **Customer presents item** at Customer Service desk
@@ -94,17 +100,31 @@ Product recalls require rapid, coordinated response:
 - Categories include: damaged packaging GM, seasonal overstock, returned electronics
 - Sold in bulk lots at significant discount
 
-### Food Donation
-- Meijer donates edible food that cannot be sold to food banks and community organizations
-- Partnerships with organizations like Feeding America network member food banks
-- Fresh produce, bakery, dairy, and shelf-stable items redirected from waste stream
-- Compliant with the Good Samaritan Food Donation Act (liability protection)
+### Food Waste Reduction
+Meijer has a goal to **divert 50% of store food waste from landfills by 2030**, supported by multiple programs:
 
-### Recycling and Waste Reduction
-- Cardboard and plastic packaging baled and recycled at store and DC level
-- Organic waste composting programs at select locations
+| Program | Impact |
+|---|---|
+| **Flashfood Partnership** | 10+ million pounds of food diverted from landfills; 3.7 million pounds in 2024 alone |
+| **Feeding America** | 10+ million pounds of surplus food donated to food bank network |
+| **Compost & Animal Feed** | 16 million pounds of potential food waste diverted through compost and animal feed programs |
+| **Organic Waste Collection** | All stores have organic waste bins; weekly pickup by third-party vendor |
+
+### Recycling and Circular Economy
+- **~10 million pounds of plastic film** collected for recycling in 2024
+- **257 million pounds of cardboard** recycled across operations
+- Partnered with **Dow Chemical** to add recycled plastic bags to asphalt in parking lots
+- Recycled pharmacy HDPE bottles into cabinetry counterweights (since 2019)
+- Baby gear recycling events at all supercenters (26,000 pounds collected)
 - Electronic waste (e-waste) handled through certified recycling partners
 - Pharmacy waste disposed per DEA and state pharmacy board regulations
+- Company-wide recycling and energy programs in place since 1973
+
+### Sustainability Recognition
+- **EPA SmartWay Excellence Award** — 8 total awards since 2017 (both mixed carrier fleet and shipper categories)
+- **2023 Sustainable Business of the Year** — Michigan Sustainable Business Forum
+- **2022 Circular Economy Leadership Award**
+- Achieved **57% reduction in Scope 1 and 2 GHG emissions** vs. 2018 baseline (surpassing 50% target a year early)
 
 ## Reverse Logistics Costs and Metrics
 

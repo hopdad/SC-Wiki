@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Overview
 
-Meijer operates a network of distribution centers across the Midwest that serve as the hub of its supply chain. These facilities receive products from suppliers, store inventory, and ship orders to 500+ retail locations across Michigan, Ohio, Indiana, Illinois, Kentucky, and Wisconsin.
+Meijer operates a network of distribution centers across the Midwest that serve as the hub of its supply chain. These facilities receive products from suppliers, store inventory, and ship orders to 270+ retail locations across Michigan, Ohio, Indiana, Illinois, Kentucky, and Wisconsin.
 
 ## DC Network
 
@@ -18,14 +18,57 @@ Meijer's distribution network includes multiple facility types strategically loc
 | **General Merchandise DC** | Non-food items: apparel, home, electronics, seasonal | Ambient |
 | **Frozen/Dairy DC** | Frozen foods and dairy products | Frozen (-10°F to 0°F) / Refrigerated (34°F-38°F) |
 | **Fresh/Perishable DC** | Produce, meat, deli, bakery | Refrigerated (34°F-38°F) |
+| **Central Kitchen** | Prepared food production | Mixed |
 | **E-commerce Fulfillment** | Online order fulfillment for home delivery | Mixed temperature zones |
 
 ### Key Locations
-Meijer's major distribution facilities are concentrated in Michigan and the surrounding region, with key hubs including:
 
-- **Lansing, MI** — Major distribution hub
-- **Tipp City, OH** — Distribution center serving Ohio and Kentucky stores
-- **Wisconsin / Illinois** — Regional facilities serving western footprint
+#### Lansing, Michigan (Major Distribution Complex)
+The Lansing campus is Meijer's largest distribution hub, spanning over 2.7 million square feet with 2,500+ team members. Established in 1974, it now features WITRON automated warehousing technology.
+
+| Facility | Address |
+|---|---|
+| **DC #85** | 5820 Millet Highway, Lansing, MI 48917 |
+| **DC #86** | 3301 S. Creyts Road, Lansing, MI 48917 |
+| **DC #89** | 3303 S. Creyts Road, Lansing, MI 48917 |
+| **DC #92** | 6001 Millet Highway, Lansing, MI 48917 |
+
+#### Grand Rapids, Michigan
+| Facility | Address |
+|---|---|
+| **DC #90** | 2725 Walker Ave. NW, Grand Rapids, MI 49544 |
+
+#### Newport, Michigan
+| Facility | Address |
+|---|---|
+| **DC #881, #882, #883** | 8857 Swan Creek Road, Newport, MI 48166 |
+
+#### Tipp City, Ohio
+| Facility | Address |
+|---|---|
+| **DC #801** | 4200 S. County Road 25A, Tipp City, OH 45371 |
+| **RSC #802** | 4220 S. County Road 25A, Tipp City, OH 45371 |
+| **DC #803** | 4230 S. County Road 25A, Tipp City, OH 45371 |
+| **DF #805** | 4250 S. County Road 25A, Tipp City, OH 45371 |
+
+#### Pleasant Prairie, Wisconsin (WITRON Automated Facility)
+A $146 million, 770,000 sq ft facility fully automated with WITRON OPM technology. Features 9 COM systems, 9 crane aisles, 23,216 pallet spaces, and 22.4-meter storage height across 10 levels. Supplies 46 stores with ~13,500 dry goods articles across Wisconsin and Greater Chicagoland.
+
+| Facility | Address |
+|---|---|
+| **DC (Automated)** | 8900 Green Bay Rd, Pleasant Prairie, WI 53158 |
+
+#### Middlebury, Indiana
+| Facility | Address |
+|---|---|
+| **DC #860 (Central Kitchen)** | Middlebury, IN 46540 |
+
+### Automation Partners
+
+| Partner | Technology | Scope |
+|---|---|---|
+| **WITRON** | OPM (Order Picking Machinery) — fully automated dry grocery distribution | Pleasant Prairie, WI; Lansing, MI |
+| **Dematic** | Micro-fulfillment centers (MFC) for in-store e-commerce fulfillment | Pilot at Grand Rapids-area supercenter (~10,000 sq ft, built in ~12 weeks) |
 
 ## Facility Layout
 
