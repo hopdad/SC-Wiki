@@ -113,7 +113,7 @@ Safety Stock = Z × √(Lead Time × σ²demand + Demand² × σ²lead_time)
 |---|---|---|
 | **In-Stock Rate** | % of active SKUs with inventory available at store | ≥97% |
 | **Fill Rate** | % of store orders filled complete by DC | ≥98% |
-| **Forecast Accuracy (MAPE)** | Mean Absolute Percentage Error of demand forecast | <20% |
+| **Forecast Accuracy (MAPE)** | Mean Absolute Percentage Error of demand forecast | \<20% |
 | **Excess Inventory** | SKUs with >X weeks of supply on hand | Minimize |
 | **Order Cycle Time** | Time from replenishment run to product on shelf | Category-dependent |
 | **Service Level** | Probability of not stocking out during lead time | ≥97.5% |

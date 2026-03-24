@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## Overview
 
-Store-level inventory management ensures that Meijer's 500+ retail locations have accurate inventory records, properly stocked shelves, and minimal shrinkage. Accurate store inventory is the foundation for effective replenishment, customer satisfaction, and financial reporting.
+Store-level inventory management ensures that Meijer's 270+ retail locations have accurate inventory records, properly stocked shelves, and minimal shrinkage. Accurate store inventory is the foundation for effective replenishment, customer satisfaction, and financial reporting.
 
 ## Perpetual Inventory Management
 
@@ -70,7 +70,7 @@ Inventory record accuracy (IRA) is critical for replenishment effectiveness:
 |---|---|
 | **>98%** | Replenishment works effectively; minimal out-of-stocks from data errors |
 | **95-98%** | Some replenishment gaps; periodic manual correction needed |
-| **<95%** | Frequent out-of-stocks and overstocks; replenishment system unreliable |
+| **\<95%** | Frequent out-of-stocks and overstocks; replenishment system unreliable |
 
 ### Common Causes of Inaccuracy
 - Items scanned incorrectly at POS (wrong UPC, not scanned)
@@ -119,5 +119,5 @@ graph TB
 | **Inventory Record Accuracy** | % of counted items matching system ±1 unit | ≥98% |
 | **Shrink %** | Inventory loss as % of sales | Below industry average |
 | **Days of Supply** | Store on-hand ÷ daily sales | Category-specific targets |
-| **Backroom Inventory %** | % of store inventory in backroom vs. shelf | Minimize (target <10%) |
+| **Backroom Inventory %** | % of store inventory in backroom vs. shelf | Minimize (target \<10%) |
 | **Cycle Count Completion** | % of scheduled counts completed on time | 100% |

@@ -100,4 +100,4 @@ Stores are notified of expected delivery times and any delays through automated 
 | **Trailer Utilization** | % of trailer cube/weight capacity used | ≥90% |
 | **Loading Accuracy** | % of loads with correct pallets/no mis-loads | ≥99.5% |
 | **Seal Integrity** | % of loads arriving with intact seals | 100% |
-| **Dock-to-Departure Time** | Avg time from staging complete to trailer departure | <90 minutes |
+| **Dock-to-Departure Time** | Avg time from staging complete to trailer departure | \<90 minutes |

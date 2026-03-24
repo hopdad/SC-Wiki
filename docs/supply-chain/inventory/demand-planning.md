@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## Overview
 
-Demand planning at Meijer uses statistical forecasting, promotional analysis, and market intelligence to predict customer demand across 500+ stores and tens of thousands of SKUs. Accurate demand forecasts drive replenishment, inventory positioning, workforce planning, and supply chain capacity decisions.
+Demand planning at Meijer uses statistical forecasting, promotional analysis, and market intelligence to predict customer demand across 270+ stores and tens of thousands of SKUs. Accurate demand forecasts drive replenishment, inventory positioning, workforce planning, and supply chain capacity decisions.
 
 ## Demand Planning Process
 
@@ -101,8 +101,8 @@ Demand planning requires input from multiple teams:
 
 | Metric | Description | Target |
 |---|---|---|
-| **MAPE** | Mean Absolute Percentage Error — avg forecast error as % of actuals | <20% (varies by category) |
+| **MAPE** | Mean Absolute Percentage Error — avg forecast error as % of actuals | \<20% (varies by category) |
 | **Bias** | Systematic over/under-forecasting tendency | Near 0% |
-| **WMAPE** | Weighted MAPE — accounts for item volume importance | <15% for high-volume items |
+| **WMAPE** | Weighted MAPE — accounts for item volume importance | \<15% for high-volume items |
 | **Forecast Value Add (FVA)** | Improvement over naive forecast (e.g., last year's sales) | Positive |
 | **Tracking Signal** | Detects when forecast consistently drifts from actuals | Within ±4 |

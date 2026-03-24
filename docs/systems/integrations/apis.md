@@ -138,6 +138,6 @@ Content-Type: application/json
 |---|---|
 | **API Response Time (p99)** | >2 seconds |
 | **Error Rate** | >1% of requests returning 5xx |
-| **Availability** | <99.9% uptime over rolling 1 hour |
+| **Availability** | \<99.9% uptime over rolling 1 hour |
 | **Rate Limit Hits** | >10% of requests throttled |
 | **Auth Failures** | Spike in 401/403 responses |

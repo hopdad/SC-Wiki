@@ -62,12 +62,12 @@ graph TB
 
 | Flow | Source | Destination | Trigger | Method | Latency |
 |---|---|---|---|---|---|
-| POS sales | Store POS | Inventory systems | Each transaction | API event | <5 min |
-| Receipt confirmation | WMS | Inventory systems | Receipt closed | API webhook | <1 min |
-| Ship confirmation | WMS | TMS | Load dispatched | API | <1 min |
-| Inventory update | WMS | Store inventory | Inventory change | API | <5 min |
-| Shipment tracking | TMS/GPS | Store operations | Position update | API | <15 min |
-| Order status | OMS | Buyer dashboard | Status change | API event | <1 min |
+| POS sales | Store POS | Inventory systems | Each transaction | API event | \<5 min |
+| Receipt confirmation | WMS | Inventory systems | Receipt closed | API webhook | \<1 min |
+| Ship confirmation | WMS | TMS | Load dispatched | API | \<1 min |
+| Inventory update | WMS | Store inventory | Inventory change | API | \<5 min |
+| Shipment tracking | TMS/GPS | Store operations | Position update | API | \<15 min |
+| Order status | OMS | Buyer dashboard | Status change | API event | \<1 min |
 
 ## Batch Data Flows
 

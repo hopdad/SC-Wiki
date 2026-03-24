@@ -106,5 +106,5 @@ DC inventory is replenished through purchase orders to suppliers:
 | **Fill Rate** | % of store orders shipped complete from DC | ≥98% |
 | **Inventory Turns** | Annual sales ÷ average inventory | Category-dependent |
 | **Days of Supply** | Current inventory ÷ average daily sales | Category-dependent |
-| **Forecast Accuracy** | Mean Absolute Percentage Error (MAPE) | <20% |
+| **Forecast Accuracy** | Mean Absolute Percentage Error (MAPE) | \<20% |
 | **Excess Inventory** | SKUs with inventory exceeding X weeks of supply | Minimize |

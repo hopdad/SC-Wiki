@@ -97,8 +97,8 @@ Once routes are published:
 | **Route Optimization Score** | Actual vs. theoretical optimal route cost | ≥90% of optimal |
 | **Stop Density** | Average stops per route | 2-5 |
 | **Avg Miles Per Stop** | Total route miles ÷ number of stops | Minimize |
-| **Planned vs. Actual Miles** | Route adherence to planned path | <5% deviation |
-| **Solver Runtime** | Time for optimizer to build daily route plan | <30 minutes |
+| **Planned vs. Actual Miles** | Route adherence to planned path | \<5% deviation |
+| **Solver Runtime** | Time for optimizer to build daily route plan | \<30 minutes |
 | **Window Compliance** | % of routes meeting all delivery windows | ≥95% |
 
 ## Tuning and Maintenance

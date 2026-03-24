@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Overview
 
-Meijer sources products from thousands of suppliers to stock over 500 stores with grocery, general merchandise, fresh, frozen, pharmacy, and specialty items. The sourcing team balances national brands, private label products, and local/regional suppliers to provide value and variety to customers.
+Meijer sources products from thousands of suppliers to stock 270+ stores with grocery, general merchandise, fresh, frozen, pharmacy, and specialty items. The sourcing team balances national brands, private label products, and local/regional suppliers to provide value and variety to customers.
 
 ## Sourcing Channels
 

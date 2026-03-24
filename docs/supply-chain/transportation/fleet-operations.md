@@ -118,7 +118,7 @@ Meijer uses the private fleet for core, predictable lanes and third-party carrie
 |---|---|---|
 | **Fleet Utilization** | % of available tractors dispatched daily | ≥90% |
 | **MPG (Miles Per Gallon)** | Average fuel efficiency across fleet | ≥6.5 MPG |
-| **Out-of-Service Rate** | % of vehicles found OOS during DOT inspections | <5% |
-| **Driver Turnover** | Annual driver attrition rate | <20% |
+| **Out-of-Service Rate** | % of vehicles found OOS during DOT inspections | \<5% |
+| **Driver Turnover** | Annual driver attrition rate | \<20% |
 | **On-Time Delivery** | % of fleet deliveries within window | ≥97% |
 | **Accident Rate** | DOT-reportable accidents per million miles | Minimize |

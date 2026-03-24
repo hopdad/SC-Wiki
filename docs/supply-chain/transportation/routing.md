@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Overview
 
-Transportation routing determines how products move from Meijer's distribution centers to 500+ stores across the Midwest. The routing process balances delivery window requirements, trailer utilization, driver hours, fuel costs, and seasonal variations to create efficient delivery plans.
+Transportation routing determines how products move from Meijer's distribution centers to 270+ stores across the Midwest. The routing process balances delivery window requirements, trailer utilization, driver hours, fuel costs, and seasonal variations to create efficient delivery plans.
 
 ## Route Planning Process
 
@@ -97,6 +97,6 @@ Stores have assigned delivery windows based on:
 | **On-Time Delivery** | % of deliveries arriving within window | ≥95% |
 | **Miles Per Stop** | Average distance between delivery stops | Minimize |
 | **Trailer Utilization** | % of cube/weight capacity used | ≥90% |
-| **Empty Miles** | % of total miles driven without freight | <15% |
+| **Empty Miles** | % of total miles driven without freight | \<15% |
 | **Cost Per Case Delivered** | Transportation cost divided by cases shipped | Minimize |
 | **Route Adherence** | % of routes following planned path | ≥95% |

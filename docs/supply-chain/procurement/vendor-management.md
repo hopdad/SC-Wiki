@@ -23,8 +23,8 @@ Suppliers are measured on key performance indicators (KPIs) across several dimen
 ### Quality Metrics
 | Metric | Description | Target |
 |---|---|---|
-| **Damage Rate** | % of units received with damage | <1% |
-| **Defect Rate** | % of units with quality defects | <0.5% |
+| **Damage Rate** | % of units received with damage | \<1% |
+| **Defect Rate** | % of units with quality defects | \<0.5% |
 | **Recall Incidents** | Number of product recalls per year | 0 |
 | **Shelf Life Compliance** | % of perishables meeting minimum remaining shelf life | ≥95% |
 

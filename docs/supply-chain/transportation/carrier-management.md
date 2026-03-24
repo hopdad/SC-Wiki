@@ -77,8 +77,8 @@ graph LR
 | **On-Time Pickup** | % of loads picked up within scheduled window | ≥95% |
 | **On-Time Delivery** | % of loads delivered within store window | ≥95% |
 | **Tender Acceptance Rate** | % of tendered loads accepted by carrier | ≥90% |
-| **Claims Ratio** | Freight claims as % of total shipments | <0.5% |
-| **OS&D Rate** | Over, short, and damaged incidents per 100 loads | <1.0 |
+| **Claims Ratio** | Freight claims as % of total shipments | \<0.5% |
+| **OS&D Rate** | Over, short, and damaged incidents per 100 loads | \<1.0 |
 | **EDI Compliance** | % of required EDI transactions sent on time | ≥99% |
 | **Safety Score** | CSA score and incident history | Satisfactory |
 

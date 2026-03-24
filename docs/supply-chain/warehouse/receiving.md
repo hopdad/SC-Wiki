@@ -99,8 +99,8 @@ If no ASN is available (non-compliant vendor or system issue):
 
 | Metric | Description | Target |
 |---|---|---|
-| **Dock-to-Stock Time** | Time from trailer check-in to inventory availability | <4 hours (ambient), <2 hours (perishable) |
+| **Dock-to-Stock Time** | Time from trailer check-in to inventory availability | \<4 hours (ambient), \<2 hours (perishable) |
 | **Receiving Accuracy** | % of receipts with zero discrepancies | ≥99% |
-| **Unload Time** | Average time to fully unload a trailer | <45 minutes |
+| **Unload Time** | Average time to fully unload a trailer | \<45 minutes |
 | **ASN Match Rate** | % of receipts with valid, accurate ASN | ≥98% |
 | **Temperature Compliance** | % of temp-sensitive loads arriving within spec | ≥99% |
